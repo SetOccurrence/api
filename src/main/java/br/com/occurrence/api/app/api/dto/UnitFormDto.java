@@ -1,0 +1,16 @@
+package br.com.occurrence.api.app.api.dto;
+
+import br.com.occurrence.api.app.api.dto.commons.AddressDto;
+import br.com.occurrence.api.app.api.dto.commons.ContactDto;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.util.UUID;
+
+public record UnitFormDto(
+        @Size(max = 80) String name,
+        @Size(max = 80) String description,
+        @NotNull UUID responsibleId,
+        AddressDto address,
+        ContactDto contact) {
+}
