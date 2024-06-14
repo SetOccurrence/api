@@ -12,7 +12,7 @@ public class DepartmentSpecifications {
 
     public static Specification<DepartmentEntity> nameLike(String name) {
         return (Root<DepartmentEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("name"), '%' + name + '%');
+                builder.like(root.get("name"), name);
     }
 
     public static Specification<DepartmentEntity> responsibleIdEqual(String responsibleId) {

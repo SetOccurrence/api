@@ -1,9 +1,9 @@
 package br.com.occurrence.api.domain.service;
 
-import br.com.occurrence.api.app.api.dto.UnitFormDto;
+import br.com.occurrence.api.app.api.dto.organization.UnitFormDto;
 import br.com.occurrence.api.domain.mapper.UnitMapper;
-import br.com.occurrence.api.domain.model.Unit;
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.Unit;
+import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.UnitRepository;
 import br.com.occurrence.api.domain.util.exception.UnitNotFoundException;
 import br.com.occurrence.api.domain.util.filter.UnitFilter;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,11 +22,14 @@ import java.util.UUID;
 public class UnitService {
 
     private final UnitRepository unitRepository;
-    private final UserService userService;
-    private final UnitMapper unitMapper;
+    private final UserReadService userReadService;
 
     public Page<Unit> findAll(Pageable pageable, UnitFilter filter) {
         return unitRepository.findAll(pageable, filter);
+    }
+
+    public List<Unit> findAll(UnitFilter filter) {
+        return unitRepository.findAll(filter);
     }
 
     public Unit findById(UUID id) {
@@ -34,15 +38,15 @@ public class UnitService {
     }
 
     public Unit create(UnitFormDto unitFormDTO) {
-        User responsible = userService.findById(unitFormDTO.responsibleId());
-        Unit unit = unitMapper.toUnit(unitFormDTO, responsible);
+        User responsible = userReadService.findById(unitFormDTO.responsibleId());
+        Unit unit = UnitMapper.toUnit(unitFormDTO, responsible);
         return unitRepository.create(unit);
     }
 
     public Unit update(UUID id, UnitFormDto unitFormDTO) {
         Unit unit = findById(id);
-        User responsible = userService.findById(unitFormDTO.responsibleId());
-        unitMapper.updateUnitFromDTO(unit, unitFormDTO, responsible);
+        User responsible = userReadService.findById(unitFormDTO.responsibleId());
+        UnitMapper.updateUnitFromDTO(unit, unitFormDTO, responsible);
         return unitRepository.update(unit);
     }
 

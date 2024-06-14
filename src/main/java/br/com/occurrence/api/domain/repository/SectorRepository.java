@@ -1,6 +1,6 @@
 package br.com.occurrence.api.domain.repository;
 
-import br.com.occurrence.api.domain.model.Sector;
+import br.com.occurrence.api.domain.model.organization.Sector;
 import br.com.occurrence.api.domain.util.filter.SectorFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

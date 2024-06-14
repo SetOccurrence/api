@@ -5,7 +5,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
@@ -15,25 +14,10 @@ public class UserSpecification implements Specification<UserEntity> {
 
     private final List<Specification<UserEntity>> filters = new ArrayList<>();
 
-    public void setName(String name) {
-        if (Strings.isBlank(name)) {
-            return;
-        }
-        filters.add(UserSpecifications.nameLike(name));
-    }
-
-    public void setEmail(String email) {
-        if (Strings.isBlank(email)) {
-            return;
-        }
-        filters.add(UserSpecifications.emailLike(email));
-    }
-
-    public void setLogin(String login) {
-        if (Strings.isBlank(login)) {
-            return;
-        }
-        filters.add(UserSpecifications.loginLike(login));
+    public void setSearch(String search) {
+        filters.add(UserSpecifications.nameLike(search));
+        filters.add(UserSpecifications.emailLike(search));
+        filters.add(UserSpecifications.loginLike(search));
     }
 
     public void setStatus(UserEntity.Status status) {
@@ -45,11 +29,13 @@ public class UserSpecification implements Specification<UserEntity> {
 
     @Override
     public Predicate toPredicate(Root<UserEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        Specification<UserEntity> specification = Specification.where(null);
-        for (Specification<UserEntity> filter : filters) {
-            specification = specification.and(filter);
+        if (filters.isEmpty()) {
+            return criteriaBuilder.conjunction();  // retorna um predicado 'true' se não houver filtros
         }
-        return specification.toPredicate(root, query, criteriaBuilder);
+        Specification<UserEntity> combinedSpecification = filters.stream()
+                .reduce(Specification::and)
+                .orElse(Specification.where(null));
+        return combinedSpecification.toPredicate(root, query, criteriaBuilder);
     }
 
 }

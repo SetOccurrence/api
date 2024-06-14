@@ -45,11 +45,13 @@ public class TeamSpecification implements Specification<TeamEntity> {
 
     @Override
     public Predicate toPredicate(Root<TeamEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        Specification<TeamEntity> specification = Specification.where(null);
-        for (Specification<TeamEntity> filter : filters) {
-            specification = specification.and(filter);
+        if (filters.isEmpty()) {
+            return criteriaBuilder.conjunction();  // retorna um predicado 'true' se não houver filtros
         }
-        return specification.toPredicate(root, query, criteriaBuilder);
+        Specification<TeamEntity> combinedSpecification = filters.stream()
+                .reduce(Specification::and)
+                .orElse(Specification.where(null));
+        return combinedSpecification.toPredicate(root, query, criteriaBuilder);
     }
 
 }

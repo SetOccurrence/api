@@ -1,9 +1,10 @@
 package br.com.occurrence.api.domain.service;
 
-import br.com.occurrence.api.app.api.dto.DepartmentFormDto;
+import br.com.occurrence.api.app.api.dto.organization.DepartmentFormDto;
 import br.com.occurrence.api.domain.mapper.DepartmentMapper;
-import br.com.occurrence.api.domain.model.Department;
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.Department;
+import br.com.occurrence.api.domain.model.organization.Unit;
+import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.DepartmentRepository;
 import br.com.occurrence.api.domain.util.exception.DepartmentNotFoundException;
 import br.com.occurrence.api.domain.util.filter.DepartmentFilter;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,11 +23,15 @@ import java.util.UUID;
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-    private final UserService userService;
-    private final DepartmentMapper departmentMapper;
+    private final UserReadService userReadService;
+    private final UnitService unitService;
 
     public Page<Department> findAll(Pageable pageable, DepartmentFilter filter) {
         return departmentRepository.findAll(pageable, filter);
+    }
+
+    public List<Department> findAll(DepartmentFilter filter) {
+        return departmentRepository.findAll(filter);
     }
 
     public Department findById(UUID id) {
@@ -34,15 +40,17 @@ public class DepartmentService {
     }
 
     public Department create(DepartmentFormDto departmentFormDTO) {
-        User responsible = userService.findById(departmentFormDTO.responsibleId());
-        Department department = departmentMapper.toDepartment(departmentFormDTO, responsible);
+        User responsible = userReadService.findById(departmentFormDTO.responsibleId());
+        Unit unit = unitService.findById(departmentFormDTO.unitId());
+        Department department = DepartmentMapper.toDepartment(departmentFormDTO, responsible, unit);
         return departmentRepository.create(department);
     }
 
     public Department update(UUID id, DepartmentFormDto departmentFormDTO) {
         Department department = findById(id);
-        User responsible = userService.findById(departmentFormDTO.responsibleId());
-        departmentMapper.updateDepartmentFromDTO(department, departmentFormDTO, responsible);
+        User responsible = userReadService.findById(departmentFormDTO.responsibleId());
+        Unit unit = unitService.findById(departmentFormDTO.unitId());
+        DepartmentMapper.updateDepartmentFromDTO(department, departmentFormDTO, responsible, unit);
         return departmentRepository.update(department);
     }
 

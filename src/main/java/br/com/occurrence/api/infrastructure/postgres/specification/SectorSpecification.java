@@ -45,11 +45,13 @@ public class SectorSpecification implements Specification<SectorEntity> {
 
     @Override
     public Predicate toPredicate(Root<SectorEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        Specification<SectorEntity> specification = Specification.where(null);
-        for (Specification<SectorEntity> filter : filters) {
-            specification = specification.and(filter);
+        if (filters.isEmpty()) {
+            return criteriaBuilder.conjunction();  // retorna um predicado 'true' se não houver filtros
         }
-        return specification.toPredicate(root, query, criteriaBuilder);
+        Specification<SectorEntity> combinedSpecification = filters.stream()
+                .reduce(Specification::and)
+                .orElse(Specification.where(null));
+        return combinedSpecification.toPredicate(root, query, criteriaBuilder);
     }
 
 }

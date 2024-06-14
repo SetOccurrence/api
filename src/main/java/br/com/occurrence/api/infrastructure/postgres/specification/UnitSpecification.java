@@ -45,11 +45,13 @@ public class UnitSpecification implements Specification<UnitEntity> {
 
     @Override
     public Predicate toPredicate(Root<UnitEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        Specification<UnitEntity> specification = Specification.where(null);
-        for (Specification<UnitEntity> filter : filters) {
-            specification = specification.and(filter);
+        if (filters.isEmpty()) {
+            return criteriaBuilder.conjunction();  // retorna um predicado 'true' se não houver filtros
         }
-        return specification.toPredicate(root, query, criteriaBuilder);
+        Specification<UnitEntity> combinedSpecification = filters.stream()
+                .reduce(Specification::and)
+                .orElse(Specification.where(null));
+        return combinedSpecification.toPredicate(root, query, criteriaBuilder);
     }
 
 }

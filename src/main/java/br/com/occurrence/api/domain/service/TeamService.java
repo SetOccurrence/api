@@ -1,9 +1,10 @@
 package br.com.occurrence.api.domain.service;
 
-import br.com.occurrence.api.app.api.dto.TeamFormDto;
+import br.com.occurrence.api.app.api.dto.organization.TeamFormDto;
 import br.com.occurrence.api.domain.mapper.TeamMapper;
-import br.com.occurrence.api.domain.model.Team;
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.Sector;
+import br.com.occurrence.api.domain.model.organization.Team;
+import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.TeamRepository;
 import br.com.occurrence.api.domain.util.exception.TeamNotFoundException;
 import br.com.occurrence.api.domain.util.filter.TeamFilter;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,11 +23,15 @@ import java.util.UUID;
 public class TeamService {
 
     private final TeamRepository teamRepository;
-    private final UserService userService;
-    private final TeamMapper teamMapper;
+    private final UserReadService userReadService;
+    private final SectorService sectorService;
 
     public Page<Team> findAll(Pageable pageable, TeamFilter filter) {
         return teamRepository.findAll(pageable, filter);
+    }
+
+    public List<Team> findAll(TeamFilter filter) {
+        return teamRepository.findAll(filter);
     }
 
     public Team findById(UUID id) {
@@ -34,15 +40,17 @@ public class TeamService {
     }
 
     public Team create(TeamFormDto teamFormDTO) {
-        User responsible = userService.findById(teamFormDTO.responsibleId());
-        Team team = teamMapper.toTeam(teamFormDTO, responsible);
+        User responsible = userReadService.findById(teamFormDTO.responsibleId());
+        Sector sector = sectorService.findById(teamFormDTO.sectorId());
+        Team team = TeamMapper.toTeam(teamFormDTO, responsible, sector);
         return teamRepository.create(team);
     }
 
     public Team update(UUID id, TeamFormDto teamFormDTO) {
         Team team = findById(id);
-        User responsible = userService.findById(teamFormDTO.responsibleId());
-        teamMapper.updateTeamFromDTO(team, teamFormDTO, responsible);
+        User responsible = userReadService.findById(teamFormDTO.responsibleId());
+        Sector sector = sectorService.findById(teamFormDTO.sectorId());
+        TeamMapper.updateTeamFromDTO(team, teamFormDTO, responsible, sector);
         return teamRepository.update(team);
     }
 

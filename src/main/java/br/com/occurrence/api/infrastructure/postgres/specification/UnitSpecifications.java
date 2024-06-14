@@ -12,7 +12,7 @@ public class UnitSpecifications {
 
     public static Specification<UnitEntity> nameLike(String name) {
         return (Root<UnitEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("name"), '%' + name + '%');
+                builder.like(root.get("name"), name);
     }
 
     public static Specification<UnitEntity> responsibleIdEqual(String responsibleId) {

@@ -1,19 +1,61 @@
 package br.com.occurrence.api.domain.mapper;
 
-import br.com.occurrence.api.app.api.dto.UserDto;
-import br.com.occurrence.api.app.api.dto.UserFormDto;
-import br.com.occurrence.api.domain.model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.ReportingPolicy;
+import br.com.occurrence.api.app.api.dto.organization.UserDto;
+import br.com.occurrence.api.app.api.dto.organization.UserFormDto;
+import br.com.occurrence.api.domain.model.organization.Team;
+import br.com.occurrence.api.domain.model.organization.User;
+import br.com.occurrence.api.domain.util.PropertiesHelper;
+import lombok.experimental.UtilityClass;
+import org.springframework.util.CollectionUtils;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
+import java.util.Collections;
+import java.util.List;
 
-    User toUser(UserFormDto userFormDTO);
+@UtilityClass
+public class UserMapper {
 
-    void updateUserFromDTO(@MappingTarget User user, UserFormDto userFormDTO);
+    public static User toUser(UserFormDto userFormDto, Team team) {
+        if (userFormDto == null) {
+            return null;
+        }
+        User user = new User();
+        user.setName(userFormDto.name());
+        user.setEmail(userFormDto.email());
+        user.setLogin(userFormDto.login());
+        user.setContact(ContactMapper.toContact(userFormDto.contact()));
+        user.setTeam(team);
+        return user;
+    }
 
-    UserDto toUserDTO(User user);
+    public static UserDto toUserDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+        return new UserDto(
+            user.getId(),
+            user.getName(),
+            user.getEmail(),
+            user.getLogin(),
+            UserDto.Status.valueOf(user.getStatus().name()),
+            TeamMapper.toTeamDTO(user.getTeam()),
+            ContactMapper.toContactDto(user.getContact())
+        );
+    }
+
+    public static List<UserDto> toUserDTO(List<User> users) {
+        if (CollectionUtils.isEmpty(users)) {
+            return Collections.emptyList();
+        }
+        return users.stream()
+                .map(UserMapper::toUserDTO)
+                .toList();
+    }
+
+    public static void updateUserFromDTO(User user, UserFormDto userFormDTO, Team team) {
+        PropertiesHelper.copyNonNullProperties(userFormDTO, user);
+        if (team != null) {
+            user.setTeam(team);
+        }
+    }
 
 }

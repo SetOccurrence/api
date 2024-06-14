@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -34,6 +35,14 @@ public class UnitEntity extends Auditable<String> {
 
     @Embedded
     private ContactEntity contact;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "departments_unit",
+        joinColumns = @JoinColumn(name = "department_id"),
+        inverseJoinColumns = @JoinColumn(name = "unit_id")
+    )
+    private List<DepartmentEntity> departments;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

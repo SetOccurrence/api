@@ -1,19 +1,18 @@
+application:
+  security:
+    jwt:
+      secret-key: "secretHere"
+      expiration-time-in-min: 30
+
 spring:
   application:
     group: occurrence
     name: api
   main:
     banner-mode: off
-  jackson:
-    default-property-inclusion: NON_NULL
   data:
     mongodb:
-      uri: mongodb://<username>:<password>@<host>:<port>/<database>
-      host: localhost
-      port: 27017
-      database: mongodb
-      username: mongodb
-      password: mongodb
+      uri: mongodb://mongodb:mongodb@localhost:27017/mongodb
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres

@@ -1,5 +1,6 @@
 package br.com.occurrence.api.app.config.exception;
 
+import br.com.occurrence.api.domain.util.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -89,6 +90,54 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
     public ApiExceptionDetail handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleHttpMessageNotReadableException(UserAlreadyExistsException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(UnitNotFoundException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleUnitNotFoundException(UnitNotFoundException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(DepartmentNotFoundException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleDepartmentNotFoundException(DepartmentNotFoundException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(SectorNotFoundException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleSectorNotFoundException(SectorNotFoundException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(TeamNotFoundException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleTeamNotFoundException(TeamNotFoundException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleUserNotFoundException(UserNotFoundException e) {
         log.warn(formatLog(e));
         return new ApiExceptionDetail(BAD_REQUEST, e);
     }

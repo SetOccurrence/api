@@ -1,6 +1,6 @@
 package br.com.occurrence.api.infrastructure.adapter;
 
-import br.com.occurrence.api.domain.model.Team;
+import br.com.occurrence.api.domain.model.organization.Team;
 import br.com.occurrence.api.domain.repository.TeamRepository;
 import br.com.occurrence.api.domain.util.filter.TeamFilter;
 import br.com.occurrence.api.infrastructure.adapter.mapper.TeamEntityMapper;
@@ -20,39 +20,38 @@ import java.util.UUID;
 public class TeamRepositoryAdapter implements TeamRepository {
 
     private final TeamEntityRepository teamEntityRepository;
-    private final TeamEntityMapper teamEntityMapper;
 
     @Override
     public Page<Team> findAll(Pageable pageable, TeamFilter filter) {
-        return teamEntityRepository.findAll(teamEntityMapper.map(filter), pageable)
-                .map(teamEntityMapper::toTeam);
+        return teamEntityRepository.findAll(TeamEntityMapper.map(filter), pageable)
+                .map(TeamEntityMapper::toTeam);
     }
 
     @Override
     public List<Team> findAll(TeamFilter filter) {
-        return teamEntityRepository.findAll(teamEntityMapper.map(filter)).stream()
-                .map(teamEntityMapper::toTeam)
+        return teamEntityRepository.findAll(TeamEntityMapper.map(filter)).stream()
+                .map(TeamEntityMapper::toTeam)
                 .toList();
     }
 
     @Override
     public Optional<Team> findById(UUID id) {
         return teamEntityRepository.findById(id)
-                .map(teamEntityMapper::toTeam);
+                .map(TeamEntityMapper::toTeam);
     }
 
     @Override
     public Team create(Team team) {
-        TeamEntity entity = teamEntityMapper.toTeamEntity(team);
+        TeamEntity entity = TeamEntityMapper.toTeamEntity(team);
         entity = teamEntityRepository.save(entity);
-        return teamEntityMapper.toTeam(entity);
+        return TeamEntityMapper.toTeam(entity);
     }
 
     @Override
     public Team update(Team team) {
-        TeamEntity entity = teamEntityMapper.toTeamEntity(team);
+        TeamEntity entity = TeamEntityMapper.toTeamEntity(team);
         entity = teamEntityRepository.save(entity);
-        return teamEntityMapper.toTeam(entity);
+        return TeamEntityMapper.toTeam(entity);
     }
 
     @Override

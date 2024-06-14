@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,11 +26,23 @@ public class TeamEntity extends Auditable<String> {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "sector_id")
+    private SectorEntity sector;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity responsible;
 
     @Embedded
     private ContactEntity contact;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "users_team",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private List<UserEntity> users;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

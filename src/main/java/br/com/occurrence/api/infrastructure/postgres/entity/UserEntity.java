@@ -28,6 +28,10 @@ public class UserEntity extends Auditable<String> {
     @Column(length = 40, unique = true, nullable = false)
     private String login;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -42,7 +46,6 @@ public class UserEntity extends Auditable<String> {
     public enum Status {
         ACTIVE,
         INACTIVE,
-        PENDING,
         BLOCKED,
         DELETED;
     }

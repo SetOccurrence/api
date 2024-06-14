@@ -1,37 +1,50 @@
 package br.com.occurrence.api.domain.mapper;
 
-import br.com.occurrence.api.app.api.dto.UnitDto;
-import br.com.occurrence.api.app.api.dto.UnitFormDto;
-import br.com.occurrence.api.domain.model.Unit;
-import br.com.occurrence.api.domain.model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.ReportingPolicy;
+import br.com.occurrence.api.app.api.dto.organization.UnitDto;
+import br.com.occurrence.api.app.api.dto.organization.UnitFormDto;
+import br.com.occurrence.api.domain.model.organization.Unit;
+import br.com.occurrence.api.domain.model.organization.User;
+import br.com.occurrence.api.domain.util.PropertiesHelper;
+import lombok.experimental.UtilityClass;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UnitMapper {
+@UtilityClass
+public class UnitMapper {
 
-    Unit toUnit(UnitFormDto unitFormDTO);
-
-    default Unit toUnit(UnitFormDto unitFormDTO, User responsible) {
+    public static Unit toUnit(UnitFormDto unitFormDTO, User responsible) {
         if (unitFormDTO == null) {
             return null;
         }
-        Unit unit = toUnit(unitFormDTO);
+        Unit unit = new Unit();
+        unit.setName(unitFormDTO.name());
+        unit.setDescription(unitFormDTO.description());
+        unit.setAddress(AddressMapper.toAddress(unitFormDTO.address()));
+        unit.setContact(ContactMapper.toContact(unitFormDTO.contact()));
         unit.setResponsible(responsible);
         return unit;
     }
 
-    void updateUnitFromDTO(@MappingTarget Unit unit, UnitFormDto unitFormDTO);
+    public static UnitDto toUnitDTO(Unit unit) {
+        if (unit == null) {
+            return null;
+        }
+        return new UnitDto(
+            unit.getId(),
+            unit.getName(),
+            unit.getDescription(),
+            UserMapper.toUserDTO(unit.getResponsible()),
+            AddressMapper.toAddressDto(unit.getAddress()),
+            ContactMapper.toContactDto(unit.getContact()),
+            DepartmentMapper.toDepartmentDTO(unit.getDepartments()),
+            UnitDto.Status.valueOf(unit.getStatus().name())
+        );
+    }
 
-    default void updateUnitFromDTO(@MappingTarget Unit unit, UnitFormDto unitFormDTO, User responsible) {
+    public static void updateUnitFromDTO(Unit unit, UnitFormDto unitFormDTO, User responsible) {
         if (unit == null) {
             return;
         }
-        updateUnitFromDTO(unit, unitFormDTO);
+        PropertiesHelper.copyNonNullProperties(unitFormDTO, unit);
         unit.setResponsible(responsible);
     }
-
-    UnitDto toUnitDTO(Unit unit);
 
 }

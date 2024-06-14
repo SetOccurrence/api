@@ -1,6 +1,6 @@
 package br.com.occurrence.api.domain.repository;
 
-import br.com.occurrence.api.domain.model.Team;
+import br.com.occurrence.api.domain.model.organization.Team;
 import br.com.occurrence.api.domain.util.filter.TeamFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

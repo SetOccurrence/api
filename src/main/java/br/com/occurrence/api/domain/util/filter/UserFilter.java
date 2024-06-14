@@ -1,6 +1,17 @@
 package br.com.occurrence.api.domain.util.filter;
 
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.User;
+import lombok.*;
 
-public record UserFilter(String name, String email, String login, User.Status status) {
+@Getter
+@Setter
+@Builder
+@With
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserFilter {
+
+    private String search;
+    private User.Status status;
+
 }

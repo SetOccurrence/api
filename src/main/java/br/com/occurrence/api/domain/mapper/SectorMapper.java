@@ -1,37 +1,74 @@
 package br.com.occurrence.api.domain.mapper;
 
-import br.com.occurrence.api.app.api.dto.SectorDto;
-import br.com.occurrence.api.app.api.dto.SectorFormDto;
-import br.com.occurrence.api.domain.model.Sector;
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.app.api.dto.organization.SectorDto;
+import br.com.occurrence.api.app.api.dto.organization.SectorFormDto;
+import br.com.occurrence.api.app.api.dto.organization.TeamDto;
+import br.com.occurrence.api.domain.model.organization.Department;
+import br.com.occurrence.api.domain.model.organization.Sector;
+import br.com.occurrence.api.domain.model.organization.Team;
+import br.com.occurrence.api.domain.model.organization.User;
+import br.com.occurrence.api.domain.util.PropertiesHelper;
+import lombok.experimental.UtilityClass;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.util.CollectionUtils;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface SectorMapper {
+import java.util.Collections;
+import java.util.List;
 
-    Sector toSector(SectorFormDto sectorFormDTO);
+@UtilityClass
+public class SectorMapper {
 
-    default Sector toSector(SectorFormDto sectorFormDTO, User responsible) {
+    public static Sector toSector(SectorFormDto sectorFormDTO, User responsible, Department department) {
         if (sectorFormDTO == null) {
             return null;
         }
-        Sector sector = toSector(sectorFormDTO);
+        Sector sector = new Sector();
+        sector.setName(sectorFormDTO.name());
+        sector.setDescription(sectorFormDTO.description());
+        sector.setContact(ContactMapper.toContact(sectorFormDTO.contact()));
         sector.setResponsible(responsible);
+        sector.setDepartment(department);
         return sector;
     }
 
-    void updateSectorFromDTO(@MappingTarget Sector sector, SectorFormDto sectorFormDTO);
+    public static SectorDto toSectorDTO(Sector sector) {
+        if (sector == null) {
+            return null;
+        }
+        return new SectorDto(
+            sector.getId(),
+            sector.getName(),
+            sector.getDescription(),
+            UserMapper.toUserDTO(sector.getResponsible()),
+            ContactMapper.toContactDto(sector.getContact()),
+            DepartmentMapper.toDepartmentDTO(sector.getDepartment()),
+            TeamMapper.toTeamDTO(sector.getTeams()),
+            SectorDto.Status.valueOf(sector.getStatus().name())
+        );
+    }
 
-    default void updateSectorFromDTO(@MappingTarget Sector sector, SectorFormDto sectorFormDTO, User responsible) {
+    public static List<SectorDto> toSectorDTO(List<Sector> sectors) {
+        if (CollectionUtils.isEmpty(sectors)) {
+            return Collections.emptyList();
+        }
+        return sectors.stream()
+                .map(SectorMapper::toSectorDTO)
+                .toList();
+    }
+
+    public static void updateSectorFromDTO(Sector sector, SectorFormDto sectorFormDTO, User responsible, Department department) {
         if (sector == null) {
             return;
         }
-        updateSectorFromDTO(sector, sectorFormDTO);
-        sector.setResponsible(responsible);
+        PropertiesHelper.copyNonNullProperties(sectorFormDTO, sector);
+        if (responsible != null) {
+            sector.setResponsible(responsible);
+        }
+        if (department != null) {
+            sector.setDepartment(department);
+        }
     }
-
-    SectorDto toSectorDTO(Sector sector);
 
 }

@@ -1,6 +1,6 @@
 package br.com.occurrence.api.infrastructure.adapter;
 
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.UserRepository;
 import br.com.occurrence.api.domain.util.filter.UserFilter;
 import br.com.occurrence.api.infrastructure.adapter.mapper.UserEntityMapper;
@@ -20,39 +20,49 @@ import java.util.UUID;
 public class UserRepositoryAdapter implements UserRepository {
 
     private final UserEntityRepository userEntityRepository;
-    private final UserEntityMapper userEntityMapper;
 
     @Override
     public Page<User> findAll(Pageable pageable, UserFilter filter) {
-        return userEntityRepository.findAll(userEntityMapper.map(filter), pageable)
-                .map(userEntityMapper::toUser);
+        return userEntityRepository.findAll(UserEntityMapper.map(filter), pageable)
+                .map(UserEntityMapper::toUser);
     }
 
     @Override
     public List<User> findAll(UserFilter filter) {
-        return userEntityRepository.findAll(userEntityMapper.map(filter)).stream()
-                .map(userEntityMapper::toUser)
+        return userEntityRepository.findAll(UserEntityMapper.map(filter)).stream()
+                .map(UserEntityMapper::toUser)
                 .toList();
     }
 
     @Override
     public Optional<User> findById(UUID id) {
         return userEntityRepository.findById(id)
-                .map(userEntityMapper::toUser);
+                .map(UserEntityMapper::toUser);
+    }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        return userEntityRepository.findByLogin(login)
+                .map(UserEntityMapper::toUser);
+    }
+
+    @Override
+    public boolean existsByLogin(String login) {
+        return userEntityRepository.existsByLogin(login);
     }
 
     @Override
     public User create(User user) {
-        UserEntity entity = userEntityMapper.toUserEntity(user);
+        UserEntity entity = UserEntityMapper.toUserEntity(user);
         entity = userEntityRepository.save(entity);
-        return userEntityMapper.toUser(entity);
+        return UserEntityMapper.toUser(entity);
     }
 
     @Override
     public User update(User user) {
-        UserEntity entity = userEntityMapper.toUserEntity(user);
+        UserEntity entity = UserEntityMapper.toUserEntity(user);
         entity = userEntityRepository.save(entity);
-        return userEntityMapper.toUser(entity);
+        return UserEntityMapper.toUser(entity);
     }
 
     @Override

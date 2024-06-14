@@ -1,9 +1,10 @@
 package br.com.occurrence.api.domain.service;
 
-import br.com.occurrence.api.app.api.dto.SectorFormDto;
+import br.com.occurrence.api.app.api.dto.organization.SectorFormDto;
 import br.com.occurrence.api.domain.mapper.SectorMapper;
-import br.com.occurrence.api.domain.model.Sector;
-import br.com.occurrence.api.domain.model.User;
+import br.com.occurrence.api.domain.model.organization.Department;
+import br.com.occurrence.api.domain.model.organization.Sector;
+import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.SectorRepository;
 import br.com.occurrence.api.domain.util.exception.SectorNotFoundException;
 import br.com.occurrence.api.domain.util.filter.SectorFilter;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,11 +23,15 @@ import java.util.UUID;
 public class SectorService {
 
     private final SectorRepository sectorRepository;
-    private final UserService userService;
-    private final SectorMapper sectorMapper;
+    private final UserReadService userReadService;
+    private final DepartmentService departmentService;
 
     public Page<Sector> findAll(Pageable pageable, SectorFilter filter) {
         return sectorRepository.findAll(pageable, filter);
+    }
+
+    public List<Sector> findAll(SectorFilter filter) {
+        return sectorRepository.findAll(filter);
     }
 
     public Sector findById(UUID id) {
@@ -34,15 +40,17 @@ public class SectorService {
     }
 
     public Sector create(SectorFormDto sectorFormDTO) {
-        User responsible = userService.findById(sectorFormDTO.responsibleId());
-        Sector sector = sectorMapper.toSector(sectorFormDTO, responsible);
+        User responsible = userReadService.findById(sectorFormDTO.responsibleId());
+        Department department = departmentService.findById(sectorFormDTO.departmentId());
+        Sector sector = SectorMapper.toSector(sectorFormDTO, responsible, department);
         return sectorRepository.create(sector);
     }
 
     public Sector update(UUID id, SectorFormDto sectorFormDTO) {
         Sector sector = findById(id);
-        User responsible = userService.findById(sectorFormDTO.responsibleId());
-        sectorMapper.updateSectorFromDTO(sector, sectorFormDTO, responsible);
+        User responsible = userReadService.findById(sectorFormDTO.responsibleId());
+        Department department = departmentService.findById(sectorFormDTO.departmentId());
+        SectorMapper.updateSectorFromDTO(sector, sectorFormDTO, responsible, department);
         return sectorRepository.update(sector);
     }
 

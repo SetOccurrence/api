@@ -45,11 +45,13 @@ public class DepartmentSpecification implements Specification<DepartmentEntity> 
 
     @Override
     public Predicate toPredicate(Root<DepartmentEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        Specification<DepartmentEntity> specification = Specification.where(null);
-        for (Specification<DepartmentEntity> filter : filters) {
-            specification = specification.and(filter);
+        if (filters.isEmpty()) {
+            return criteriaBuilder.conjunction();  // retorna um predicado 'true' se não houver filtros
         }
-        return specification.toPredicate(root, query, criteriaBuilder);
+        Specification<DepartmentEntity> combinedSpecification = filters.stream()
+                .reduce(Specification::and)
+                .orElse(Specification.where(null));
+        return combinedSpecification.toPredicate(root, query, criteriaBuilder);
     }
 
 }

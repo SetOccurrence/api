@@ -12,17 +12,17 @@ public class UserSpecifications {
 
     public static Specification<UserEntity> nameLike(String name) {
         return (Root<UserEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("name"), '%' + name + '%');
+                builder.like(root.get("name"), name);
     }
 
     public static Specification<UserEntity> emailLike(String email) {
         return (Root<UserEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("email"), '%' + email + '%');
+                builder.like(root.get("email"), email);
     }
 
     public static Specification<UserEntity> loginLike(String login) {
         return (Root<UserEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("login"), '%' + login + '%');
+                builder.like(root.get("login"), login);
     }
 
     public static Specification<UserEntity> statusEqual(UserEntity.Status status) {

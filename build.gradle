@@ -19,10 +19,12 @@ dependencies {
 	// Spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.0'
 
-	// Validation
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	// Security
+	//implementation 'org.springframework.security:spring-security-core:6.3.0'
+	//implementation 'com.auth0:java-jwt:4.4.0'
 
 	// Postgres
 	runtimeOnly 'org.postgresql:postgresql'

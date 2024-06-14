@@ -1,6 +1,6 @@
 package br.com.occurrence.api.infrastructure.adapter;
 
-import br.com.occurrence.api.domain.model.Unit;
+import br.com.occurrence.api.domain.model.organization.Unit;
 import br.com.occurrence.api.domain.repository.UnitRepository;
 import br.com.occurrence.api.domain.util.filter.UnitFilter;
 import br.com.occurrence.api.infrastructure.adapter.mapper.UnitEntityMapper;
@@ -20,39 +20,38 @@ import java.util.UUID;
 public class UnitRepositoryAdapter implements UnitRepository {
 
     private final UnitEntityRepository unitEntityRepository;
-    private final UnitEntityMapper unitEntityMapper;
 
     @Override
     public Page<Unit> findAll(Pageable pageable, UnitFilter filter) {
-        return unitEntityRepository.findAll(unitEntityMapper.map(filter), pageable)
-                .map(unitEntityMapper::toUnit);
+        return unitEntityRepository.findAll(UnitEntityMapper.map(filter), pageable)
+                .map(UnitEntityMapper::toUnit);
     }
 
     @Override
     public List<Unit> findAll(UnitFilter filter) {
-        return unitEntityRepository.findAll(unitEntityMapper.map(filter)).stream()
-                .map(unitEntityMapper::toUnit)
+        return unitEntityRepository.findAll(UnitEntityMapper.map(filter)).stream()
+                .map(UnitEntityMapper::toUnit)
                 .toList();
     }
 
     @Override
     public Optional<Unit> findById(UUID id) {
         return unitEntityRepository.findById(id)
-                .map(unitEntityMapper::toUnit);
+                .map(UnitEntityMapper::toUnit);
     }
 
     @Override
     public Unit create(Unit unit) {
-        UnitEntity entity = unitEntityMapper.toUnitEntity(unit);
+        UnitEntity entity = UnitEntityMapper.toUnitEntity(unit);
         entity = unitEntityRepository.save(entity);
-        return unitEntityMapper.toUnit(entity);
+        return UnitEntityMapper.toUnit(entity);
     }
 
     @Override
     public Unit update(Unit unit) {
-        UnitEntity entity = unitEntityMapper.toUnitEntity(unit);
+        UnitEntity entity = UnitEntityMapper.toUnitEntity(unit);
         entity = unitEntityRepository.save(entity);
-        return unitEntityMapper.toUnit(entity);
+        return UnitEntityMapper.toUnit(entity);
     }
 
     @Override

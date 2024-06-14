@@ -12,7 +12,7 @@ public class SectorSpecifications {
 
     public static Specification<SectorEntity> nameLike(String name) {
         return (Root<SectorEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.equal(root.get("name"), '%' + name + '%');
+                builder.like(root.get("name"), name);
     }
 
     public static Specification<SectorEntity> responsibleIdEqual(String responsibleId) {

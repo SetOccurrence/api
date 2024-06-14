@@ -1,37 +1,69 @@
 package br.com.occurrence.api.domain.mapper;
 
-import br.com.occurrence.api.app.api.dto.DepartmentDto;
-import br.com.occurrence.api.app.api.dto.DepartmentFormDto;
-import br.com.occurrence.api.domain.model.Department;
-import br.com.occurrence.api.domain.model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.ReportingPolicy;
+import br.com.occurrence.api.app.api.dto.organization.DepartmentDto;
+import br.com.occurrence.api.app.api.dto.organization.DepartmentFormDto;
+import br.com.occurrence.api.domain.model.organization.Department;
+import br.com.occurrence.api.domain.model.organization.Unit;
+import br.com.occurrence.api.domain.model.organization.User;
+import br.com.occurrence.api.domain.util.PropertiesHelper;
+import lombok.experimental.UtilityClass;
+import org.springframework.util.CollectionUtils;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface DepartmentMapper {
+import java.util.Collections;
+import java.util.List;
 
-    Department toDepartment(DepartmentFormDto departmentFormDTO);
+@UtilityClass
+public class DepartmentMapper {
 
-    default Department toDepartment(DepartmentFormDto departmentFormDTO, User responsible) {
+    public static Department toDepartment(DepartmentFormDto departmentFormDTO, User responsible, Unit unit) {
         if (departmentFormDTO == null) {
             return null;
         }
-        Department department = toDepartment(departmentFormDTO);
+        Department department = new Department();
+        department.setName(departmentFormDTO.name());
+        department.setDescription(departmentFormDTO.description());
+        department.setContact(ContactMapper.toContact(departmentFormDTO.contact()));
         department.setResponsible(responsible);
+        department.setUnit(unit);
         return department;
     }
 
-    void updateDepartmentFromDTO(@MappingTarget Department department, DepartmentFormDto departmentFormDTO);
+    public static DepartmentDto toDepartmentDTO(Department department) {
+        if (department == null) {
+            return null;
+        }
+        return new DepartmentDto(
+            department.getId(),
+            department.getName(),
+            department.getDescription(),
+            UserMapper.toUserDTO(department.getResponsible()),
+            ContactMapper.toContactDto(department.getContact()),
+            UnitMapper.toUnitDTO(department.getUnit()),
+            SectorMapper.toSectorDTO(department.getSectors()),
+            DepartmentDto.Status.valueOf(department.getStatus().name())
+        );
+    }
 
-    default void updateDepartmentFromDTO(@MappingTarget Department department, DepartmentFormDto departmentFormDTO, User responsible) {
+    public static List<DepartmentDto> toDepartmentDTO(List<Department> departments) {
+        if (CollectionUtils.isEmpty(departments)) {
+            return Collections.emptyList();
+        }
+        return departments.stream()
+                .map(DepartmentMapper::toDepartmentDTO)
+                .toList();
+    }
+
+    public static void updateDepartmentFromDTO(Department department, DepartmentFormDto departmentFormDTO, User responsible, Unit unit) {
         if (department == null) {
             return;
         }
-        updateDepartmentFromDTO(department, departmentFormDTO);
-        department.setResponsible(responsible);
+        PropertiesHelper.copyNonNullProperties(departmentFormDTO, department);
+        if (responsible != null) {
+            department.setResponsible(responsible);
+        }
+        if (unit != null) {
+            department.setUnit(unit);
+        }
     }
-
-    DepartmentDto toDepartmentDTO(Department department);
 
 }
