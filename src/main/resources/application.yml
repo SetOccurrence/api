@@ -2,7 +2,7 @@ application:
   security:
     jwt:
       secret-key: "secretHere"
-      expiration-time-in-min: 30
+      expiration-time-in-min: 120
 
 spring:
   application:

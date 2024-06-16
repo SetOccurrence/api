@@ -4,6 +4,8 @@ import br.com.occurrence.api.domain.util.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -141,6 +143,24 @@ public class GlobalExceptionHandler {
         log.warn(formatLog(e));
         return new ApiExceptionDetail(BAD_REQUEST, e);
     }
+
+    @ResponseStatus(FORBIDDEN)
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleUserNotFoundException(BadCredentialsException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(FORBIDDEN, e);
+    }
+
+    @ResponseStatus(FORBIDDEN)
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleUserNotFoundException(InternalAuthenticationServiceException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(FORBIDDEN, e);
+    }
+
+
 
     private static String formatLog(Exception e) {
         return String.format("%s: %s", e.getClass().getSimpleName(), e.getMessage());

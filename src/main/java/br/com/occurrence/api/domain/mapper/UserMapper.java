@@ -14,7 +14,7 @@ import java.util.List;
 @UtilityClass
 public class UserMapper {
 
-    public static User toUser(UserFormDto userFormDto, Team team) {
+    public static User toUser(UserFormDto userFormDto, Team team, String encodedPassword) {
         if (userFormDto == null) {
             return null;
         }
@@ -22,6 +22,7 @@ public class UserMapper {
         user.setName(userFormDto.name());
         user.setEmail(userFormDto.email());
         user.setLogin(userFormDto.login());
+        user.setPassword(encodedPassword);
         user.setContact(ContactMapper.toContact(userFormDto.contact()));
         user.setTeam(team);
         return user;

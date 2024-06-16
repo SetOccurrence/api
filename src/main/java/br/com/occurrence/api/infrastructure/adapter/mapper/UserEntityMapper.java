@@ -22,6 +22,7 @@ public class UserEntityMapper {
         user.setName(entity.getName());
         user.setEmail(entity.getEmail());
         user.setLogin(entity.getLogin());
+        user.setPassword(entity.getPassword());
         user.setTeam(TeamEntityMapper.toTeamWithoutRelations(entity.getTeam()));
         user.setContact(ContactEntityMapper.toContact(entity.getContact()));
         user.setStatus(User.Status.valueOf(entity.getStatus().name()));
@@ -50,6 +51,7 @@ public class UserEntityMapper {
         entity.setName(user.getName());
         entity.setEmail(user.getEmail());
         entity.setLogin(user.getLogin());
+        entity.setPassword(user.getPassword());
         entity.setTeam(TeamEntityMapper.toTeamEntityWithoutRelations(user.getTeam()));
         entity.setContact(ContactEntityMapper.toContactEntity(user.getContact()));
         entity.setStatus(UserEntity.Status.valueOf(user.getStatus().name()));

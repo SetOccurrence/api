@@ -28,6 +28,9 @@ public class UserEntity extends Auditable<String> {
     @Column(length = 40, unique = true, nullable = false)
     private String login;
 
+    @Column(nullable = false)
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "team_id")
     private TeamEntity team;

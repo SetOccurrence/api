@@ -12,6 +12,7 @@ public record UserFormDto(
         @NotBlank @Size(max = 80) String name,
         @Email @NotBlank @Size(max = 80) String email,
         @NotBlank @Size(max = 40) String login,
+        @NotBlank String password,
         @NotNull UUID teamId,
         ContactDto contact) {
 }

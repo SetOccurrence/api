@@ -6,12 +6,9 @@ import br.com.occurrence.api.domain.model.organization.Team;
 import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.repository.UserRepository;
 import br.com.occurrence.api.domain.util.exception.UserAlreadyExistsException;
-import br.com.occurrence.api.domain.util.exception.UserNotFoundException;
-import br.com.occurrence.api.domain.util.filter.UserFilter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -23,6 +20,7 @@ public class UserCommandService {
 
     private final UserRepository userRepository;
     private final UserReadService userReadService;
+    private final PasswordEncoder passwordEncoder;
     private final TeamService teamService;
 
     public User create(UserFormDto userFormDTO) {
@@ -31,7 +29,8 @@ public class UserCommandService {
             throw new UserAlreadyExistsException();
         }
         Team team = teamService.findById(userFormDTO.teamId());
-        User user = UserMapper.toUser(userFormDTO, team);
+        String encodedPassword = passwordEncoder.encode(userFormDTO.password());
+        User user = UserMapper.toUser(userFormDTO, team, encodedPassword);
         return userRepository.create(user);
     }
 
