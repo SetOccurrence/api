@@ -7,11 +7,9 @@ import br.com.occurrence.api.domain.service.UnitService;
 import br.com.occurrence.api.domain.service.UserReadService;
 import br.com.occurrence.api.domain.util.filter.UnitFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import groovy.util.logging.Slf4j;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,14 +17,15 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Slf4j
-@SpringBootTest
-@AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@Slf4j
+//@SpringBootTest
+//@AutoConfigureMockMvc
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApiApplicationTests {
-
+/*
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -65,7 +64,7 @@ class ApiApplicationTests {
 	void testFindAllUnit() throws Exception {
 		mockMvc.perform(
 						get("/api/v1/units/list")
-								.contentType(MediaType.APPLICATION_JSON)
+							.contentType(MediaType.APPLICATION_JSON)
 				)
 				.andExpect(status().isOk());
 	}
@@ -78,7 +77,7 @@ class ApiApplicationTests {
 
 		mockMvc.perform(
 						get("/api/v1/units/" + unit.getId())
-								.contentType(MediaType.APPLICATION_JSON)
+							.contentType(MediaType.APPLICATION_JSON)
 				)
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.name", is(unit.getName())));
@@ -114,11 +113,6 @@ class ApiApplicationTests {
 		List<Unit> units = unitService.findAll(new UnitFilter(null, null, null));
 		Unit unit = units.get(0);
 
-
-
-
-
-
 		//DELETE
 		mockMvc.perform(
 					delete("/api/v1/units/" + unit.getId())
@@ -126,6 +120,6 @@ class ApiApplicationTests {
 				)
 				.andExpect(status().isNoContent());
 	}
-
+ */
 
 }

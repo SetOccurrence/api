@@ -21,6 +21,7 @@ public class Runner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHH222222222");
         checkUserAdminExits();
     }
 

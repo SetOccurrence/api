@@ -1,8 +1,24 @@
 version: '3.8'
 
 services:
+  set_occurrence:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db_postgres"
+      - "db_mongo"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_MONGO_URI=mongodb://mongodb:db_mongo@127.0.0.1:27017/mongodb
+
   db_postgres:
-    image: postgres
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -12,7 +28,7 @@ services:
       - "5432:5432"
 
   db_mongo:
-    image: mongo
+    image: mongo:latest
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongodb
