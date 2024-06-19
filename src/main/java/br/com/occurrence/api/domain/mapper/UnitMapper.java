@@ -44,7 +44,9 @@ public class UnitMapper {
             return;
         }
         PropertiesHelper.copyNonNullProperties(unitFormDTO, unit);
-        unit.setResponsible(responsible);
+        if (responsible != null) {
+            unit.setResponsible(responsible);
+        }
     }
 
 }

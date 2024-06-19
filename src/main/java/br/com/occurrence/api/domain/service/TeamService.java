@@ -48,8 +48,14 @@ public class TeamService {
 
     public Team update(UUID id, TeamFormDto teamFormDTO) {
         Team team = findById(id);
-        User responsible = userReadService.findById(teamFormDTO.responsibleId());
-        Sector sector = sectorService.findById(teamFormDTO.sectorId());
+        User responsible = null;
+        if (teamFormDTO.responsibleId() != null) {
+            responsible = userReadService.findById(teamFormDTO.responsibleId());
+        }
+        Sector sector = null;
+        if (teamFormDTO.sectorId() != null) {
+            sector = sectorService.findById(teamFormDTO.sectorId());
+        }
         TeamMapper.updateTeamFromDTO(team, teamFormDTO, responsible, sector);
         return teamRepository.update(team);
     }

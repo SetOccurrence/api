@@ -45,7 +45,10 @@ public class UnitService {
 
     public Unit update(UUID id, UnitFormDto unitFormDTO) {
         Unit unit = findById(id);
-        User responsible = userReadService.findById(unitFormDTO.responsibleId());
+        User responsible = null;
+        if (unitFormDTO.responsibleId() != null) {
+            responsible = userReadService.findById(unitFormDTO.responsibleId());
+        }
         UnitMapper.updateUnitFromDTO(unit, unitFormDTO, responsible);
         return unitRepository.update(unit);
     }

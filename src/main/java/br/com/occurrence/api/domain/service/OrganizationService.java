@@ -2,6 +2,7 @@ package br.com.occurrence.api.domain.service;
 
 import br.com.occurrence.api.app.api.dto.organization.commons.EntityDto;
 import br.com.occurrence.api.app.api.dto.organization.commons.OrganizationTreeDto;
+import br.com.occurrence.api.domain.mapper.UserMapper;
 import br.com.occurrence.api.domain.model.organization.*;
 import br.com.occurrence.api.domain.util.filter.UnitFilter;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +20,7 @@ public class OrganizationService {
     private final DepartmentService departmentService;
     private final SectorService sectorService;
     private final TeamService teamService;
+    private final UserReadService userReadService;
     
     public OrganizationTreeDto findOrgnanization() {
         
@@ -28,6 +31,10 @@ public class OrganizationService {
         List<Department> departments = departmentService.findAll(null);
         List<Sector> sectors = sectorService.findAll(null);
         List<Team> teams = teamService.findAll(null);
+        List<User> noRelationUsers = userReadService.findAll(null).stream()
+                .filter(user -> user.getTeam() == null)
+                .filter(user -> !Objects.equals(user.getLogin(), "admin"))
+                .toList();
 
         //Units
         for (Unit unit : units) {
@@ -80,7 +87,7 @@ public class OrganizationService {
             ));
         }
 
-        return new OrganizationTreeDto(unitsTree);
+        return new OrganizationTreeDto(unitsTree, UserMapper.toUserDTO(noRelationUsers));
     }
 
 }

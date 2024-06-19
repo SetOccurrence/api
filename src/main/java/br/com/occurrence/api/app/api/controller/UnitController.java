@@ -56,8 +56,8 @@ public class UnitController {
         return ResponseEntity.created(URI.create("/api/v1/units/" + dto.id())).body(dto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UnitDto> update(@PathVariable UUID id, @RequestBody @Valid UnitFormDto form) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UnitDto> update(@PathVariable UUID id, @RequestBody UnitFormDto form) {
         Unit unit = unitService.update(id, form);
         UnitDto dto = UnitMapper.toUnitDTO(unit);
         return ResponseEntity.ok(dto);

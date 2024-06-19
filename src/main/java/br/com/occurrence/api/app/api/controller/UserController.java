@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable UUID id, UserFormDto form) {
+    public ResponseEntity<UserDto> update(@PathVariable UUID id, @RequestBody UserFormDto form) {
         User user = userCommandService.update(id, form);
         UserDto dto = UserMapper.toUserDTO(user);
         return ResponseEntity.ok(dto);

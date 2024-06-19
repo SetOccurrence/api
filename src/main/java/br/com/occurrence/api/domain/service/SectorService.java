@@ -48,8 +48,14 @@ public class SectorService {
 
     public Sector update(UUID id, SectorFormDto sectorFormDTO) {
         Sector sector = findById(id);
-        User responsible = userReadService.findById(sectorFormDTO.responsibleId());
-        Department department = departmentService.findById(sectorFormDTO.departmentId());
+        User responsible = null;
+        if (sectorFormDTO.responsibleId() != null) {
+            responsible = userReadService.findById(sectorFormDTO.responsibleId());
+        }
+        Department department = null;
+        if (sectorFormDTO.departmentId() != null) {
+            department = departmentService.findById(sectorFormDTO.departmentId());
+        }
         SectorMapper.updateSectorFromDTO(sector, sectorFormDTO, responsible, department);
         return sectorRepository.update(sector);
     }

@@ -39,7 +39,10 @@ public class UserCommandService {
 
     public User update(UUID id, UserFormDto userFormDTO) {
         User user = userReadService.findById(id);
-        Team team = teamService.findById(userFormDTO.teamId());
+        Team team = null;
+        if (userFormDTO.teamId() != null) {
+            team = teamService.findById(userFormDTO.teamId());
+        }
         UserMapper.updateUserFromDTO(user, userFormDTO, team);
         return userRepository.update(user);
     }

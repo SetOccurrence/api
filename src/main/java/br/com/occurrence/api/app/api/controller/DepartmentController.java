@@ -60,8 +60,8 @@ public class DepartmentController {
         return ResponseEntity.created(URI.create("/api/v1/departments/" + dto.id())).body(dto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DepartmentDto> update(@PathVariable UUID id, @RequestBody @Valid DepartmentFormDto form) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<DepartmentDto> update(@PathVariable UUID id, @RequestBody DepartmentFormDto form) {
         Department department = departmentService.update(id, form);
         DepartmentDto dto = DepartmentMapper.toDepartmentDTO(department);
         return ResponseEntity.ok(dto);

@@ -60,8 +60,8 @@ public class SectorController {
         return ResponseEntity.created(URI.create("/api/v1/sectors/" + dto.id())).body(dto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SectorDto> update(@PathVariable UUID id, @RequestBody @Valid SectorFormDto form) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<SectorDto> update(@PathVariable UUID id, @RequestBody SectorFormDto form) {
         Sector sector = sectorService.update(id, form);
         SectorDto dto = SectorMapper.toSectorDTO(sector);
         return ResponseEntity.ok(dto);

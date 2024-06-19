@@ -60,8 +60,8 @@ public class TeamController {
         return ResponseEntity.created(URI.create("/api/v1/teams/" + dto.id())).body(dto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<TeamDto> update(@PathVariable UUID id, @RequestBody @Valid TeamFormDto form) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<TeamDto> update(@PathVariable UUID id, @RequestBody TeamFormDto form) {
         Team team = teamService.update(id, form);
         TeamDto dto = TeamMapper.toTeamDTO(team);
         return ResponseEntity.ok(dto);

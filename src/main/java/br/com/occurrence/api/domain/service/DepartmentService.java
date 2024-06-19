@@ -48,8 +48,14 @@ public class DepartmentService {
 
     public Department update(UUID id, DepartmentFormDto departmentFormDTO) {
         Department department = findById(id);
-        User responsible = userReadService.findById(departmentFormDTO.responsibleId());
-        Unit unit = unitService.findById(departmentFormDTO.unitId());
+        User responsible = null;
+        if (departmentFormDTO.responsibleId() != null) {
+            responsible = userReadService.findById(departmentFormDTO.responsibleId());
+        }
+        Unit unit = null;
+        if (departmentFormDTO.unitId() != null) {
+            unit = unitService.findById(departmentFormDTO.unitId());
+        }
         DepartmentMapper.updateDepartmentFromDTO(department, departmentFormDTO, responsible, unit);
         return departmentRepository.update(department);
     }
