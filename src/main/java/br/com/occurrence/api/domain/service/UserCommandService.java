@@ -28,7 +28,10 @@ public class UserCommandService {
         if (exists) {
             throw new UserAlreadyExistsException();
         }
-        Team team = teamService.findById(userFormDTO.teamId());
+        Team team = null;
+        if (userFormDTO.teamId() != null) {
+            team = teamService.findById(userFormDTO.teamId());
+        }
         String encodedPassword = passwordEncoder.encode(userFormDTO.password());
         User user = UserMapper.toUser(userFormDTO, team, encodedPassword);
         return userRepository.create(user);

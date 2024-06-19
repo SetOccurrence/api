@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -57,8 +59,10 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> me() {
-        //TODO: implement security
-        return ResponseEntity.ok(null);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        UserDto dto = UserMapper.toUserDTO(user);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -69,7 +73,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable UUID id, @Valid UserFormDto form) {
+    public ResponseEntity<UserDto> update(@PathVariable UUID id, UserFormDto form) {
         User user = userCommandService.update(id, form);
         UserDto dto = UserMapper.toUserDTO(user);
         return ResponseEntity.ok(dto);

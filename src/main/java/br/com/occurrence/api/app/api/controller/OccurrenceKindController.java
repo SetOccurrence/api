@@ -14,13 +14,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/occurrence-kind")
-public class OccurrenceKindController {
+public class
+OccurrenceKindController {
 
     private final OccurrenceKindService occurrenceKindService;
     private final OccurrenceKindMapper occurrenceKindMapper;
