@@ -4,5 +4,5 @@ import br.com.occurrence.api.app.api.dto.occurrence.commons.form.question.Questi
 
 import java.util.Set;
 
-public record FormDto(String name, String description, Set<QuestionDto> questions) {
+public record FormDto(Set<QuestionDto> questions) {
 }
