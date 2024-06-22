@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Department {
+public class Department implements Entity {
 
     private UUID id;
     private String name;
@@ -25,6 +25,11 @@ public class Department {
     private LocalDateTime createdAt;
     private String updatedBy;
     private LocalDateTime updatedAt;
+
+    @Override
+    public Type getType() {
+        return Type.DEPARTMENT;
+    }
 
     @Getter
     @AllArgsConstructor

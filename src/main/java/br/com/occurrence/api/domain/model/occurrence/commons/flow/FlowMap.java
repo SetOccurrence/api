@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.LinkedList;
 
 @Getter
 @Setter
@@ -14,6 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class FlowMap {
 
-    private List<Step> steps;
+    private LinkedList<Step> steps;
 
 }

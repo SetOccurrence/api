@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db_postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_DATASOURCE_MONGO_URI=mongodb://mongodb:db_mongo@127.0.0.1:27017/mongodb
+      - SPRING_DATASOURCE_MONGO_URI=mongodb://mongodb:mongodb@127.0.0.1:27017/mongodb?authSource=admin
 
   db_postgres:
     image: postgres:latest
@@ -33,5 +33,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongodb
       MONGO_INITDB_ROOT_PASSWORD: mongodb
+      MONGO_INITDB_DATABASE: mongodb
     ports:
       - "27017:27017"

@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class MultipleChoiceQuestion extends Question {
 
-    private Set<String> choices;
+    private Set<String> options;
 
     @Override
     public Type getType() {

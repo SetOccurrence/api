@@ -4,6 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "br.com.occurrence.api.infrastructure.mongo")
+@EnableMongoRepositories(basePackages = "br.com.occurrence.api.infrastructure.mongodb")
 public class MongoConfig {
 }

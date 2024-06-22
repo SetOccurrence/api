@@ -14,13 +14,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/occurrence-kind")
-public class
-OccurrenceKindController {
+public class OccurrenceKindController {
 
     private final OccurrenceKindService occurrenceKindService;
     private final OccurrenceKindMapper occurrenceKindMapper;
@@ -45,9 +45,8 @@ OccurrenceKindController {
     @PostMapping
     public ResponseEntity<OccurrenceKindDto> create(@RequestBody @Valid OccurrenceKindFormDto form) {
         OccurrenceKind occurrenceKind = occurrenceKindService.create(form);
-        //OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
-        //return ResponseEntity.created(URI.create("/api/v1/occurrence-kind/" + occurrenceKind.getId())).body(dto);
-        return null;
+        OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
+        return ResponseEntity.created(URI.create("/api/v1/occurrence-kind/" + occurrenceKind.getId())).body(dto);
     }
 
     @PutMapping("/{id}")

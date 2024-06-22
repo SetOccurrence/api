@@ -15,7 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 public class OccurrenceKind extends Auditable<User> {
 
-    private UUID id;
+    private String id;
     private String name;
     private String prefix;
     private String description;

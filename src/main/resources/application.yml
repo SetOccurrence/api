@@ -12,7 +12,7 @@ spring:
     banner-mode: off
   data:
     mongodb:
-      uri: ${SPRING_DATASOURCE_MONGO_URI:mongodb://mongodb:mongodb@localhost:27017/mongodb}
+      uri: ${SPRING_DATASOURCE_MONGO_URI:mongodb://mongodb:mongodb@localhost:27017/mongodb?authSource=admin}
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}

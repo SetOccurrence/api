@@ -11,9 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LinearScaleQuestion extends Question {
 
-    private int scaleSize;
-    private String startLabel;
-    private String endLabel;
+    private int minScale;
+    private int maxScale;
+    private String minScaleLabel;
+    private String maxScaleLabel;
 
     @Override
     public Type getType() {

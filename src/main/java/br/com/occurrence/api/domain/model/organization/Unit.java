@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Unit {
+public class Unit implements Entity {
 
     private UUID id;
     private String name;
@@ -26,6 +26,11 @@ public class Unit {
     private LocalDateTime createdAt;
     private String updatedBy;
     private LocalDateTime updatedAt;
+
+    @Override
+    public Type getType() {
+        return Type.UNIT;
+    }
 
     @Getter
     @AllArgsConstructor

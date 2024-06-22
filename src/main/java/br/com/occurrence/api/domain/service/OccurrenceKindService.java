@@ -32,9 +32,8 @@ public class OccurrenceKindService {
     }
 
     public OccurrenceKind create(OccurrenceKindFormDto form) {
-        //OccurrenceKind occurrenceKind = occurrenceKindMapper.toOccurrenceKind(form);
-        //return occurrenceKindRepository.create(occurrenceKind);
-        return null;
+        OccurrenceKind occurrenceKind = occurrenceKindMapper.toOccurrenceKind(form);
+        return occurrenceKindRepository.create(occurrenceKind);
     }
 
     public OccurrenceKind update(UUID id, OccurrenceKindFormDto form) {

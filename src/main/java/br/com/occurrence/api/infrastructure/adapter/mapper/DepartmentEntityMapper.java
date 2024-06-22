@@ -1,10 +1,8 @@
 package br.com.occurrence.api.infrastructure.adapter.mapper;
 
 import br.com.occurrence.api.domain.model.organization.Department;
-import br.com.occurrence.api.domain.model.organization.Sector;
 import br.com.occurrence.api.domain.util.filter.DepartmentFilter;
 import br.com.occurrence.api.infrastructure.postgres.entity.DepartmentEntity;
-import br.com.occurrence.api.infrastructure.postgres.entity.SectorEntity;
 import br.com.occurrence.api.infrastructure.postgres.specification.DepartmentSpecification;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.CollectionUtils;

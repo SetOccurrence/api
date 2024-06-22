@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails, Entity {
 
     private UUID id;
     private String name;
@@ -46,6 +46,11 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return login;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.USER;
     }
 
     @Getter

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 @Getter
 @Setter
@@ -14,8 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class Form {
 
-    private String name;
-    private String description;
-    private Set<Question> questions;
+    private LinkedHashSet<Question> questions;
 
 }

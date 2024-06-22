@@ -1,14 +1,19 @@
 package br.com.occurrence.api.app.api.dto.occurrence.commons.form.question;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class LinearScaleQuestionDto extends QuestionDto {
 
-    private int startsWith;
-    private int endsWith;
-    private String startLabel;
-    private String endLabel;
+    private int minScale;
+    private int maxScale;
+    private String minScaleLabel;
+    private String maxScaleLabel;
 
     private int range() {
-        return (endsWith - startsWith) + 1;
+        return (maxScale - minScale) + 1;
     }
 
     @Override

@@ -4,10 +4,8 @@ import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.FlowMapDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.UUID;
-
 public record OccurrenceKindDto(
-        UUID id,
+        String id,
         String name,
         String prefix,
         String description,

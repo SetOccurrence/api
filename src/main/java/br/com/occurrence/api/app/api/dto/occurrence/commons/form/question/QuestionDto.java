@@ -1,10 +1,15 @@
 package br.com.occurrence.api.app.api.dto.occurrence.commons.form.question;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class QuestionDto {
 
-    private String name;
-    private String description;
-    private boolean optional;
+    protected String name;
+    protected String description;
+    protected boolean optional;
 
     public abstract Type getType();
 

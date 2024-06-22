@@ -6,14 +6,14 @@ import br.com.occurrence.api.domain.util.filter.OccurrenceFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
-@Repository
+@Component
 public class OccurrenceRepositoryAdapter implements OccurrenceRepository {
 
     @Override
