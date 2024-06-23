@@ -12,6 +12,7 @@ import lombok.*;
 public class UserFilter {
 
     private String search;
+    private String teamId;
     private User.Status status;
 
 }

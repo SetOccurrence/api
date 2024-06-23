@@ -131,6 +131,7 @@ public class TeamEntityMapper {
         specification.setName(filter.name());
         specification.setResponsibleId(filter.responsible() != null ? filter.responsible().id() : null);
         specification.setResponsibleName(filter.responsible() != null ? filter.responsible().name() : null);
+        specification.setSectorId(filter.sectorId());
         specification.setStatus(filter.status() != null ? TeamEntity.Status.valueOf(filter.status().name()) : null);
         return specification;
     }

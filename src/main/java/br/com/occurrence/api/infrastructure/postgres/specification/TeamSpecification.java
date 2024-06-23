@@ -36,6 +36,13 @@ public class TeamSpecification implements Specification<TeamEntity> {
         filters.add(TeamSpecifications.responsibleNameEqual(responsibleName));
     }
 
+    public void setSectorId(String sectorId) {
+        if (Strings.isBlank(sectorId)) {
+            return;
+        }
+        filters.add(TeamSpecifications.sectorIdEqual(sectorId));
+    }
+
     public void setStatus(TeamEntity.Status status) {
         if (status == null) {
             return;

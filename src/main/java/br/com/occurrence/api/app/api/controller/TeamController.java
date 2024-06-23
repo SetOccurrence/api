@@ -1,14 +1,10 @@
 package br.com.occurrence.api.app.api.controller;
 
-import br.com.occurrence.api.app.api.dto.organization.SectorDto;
 import br.com.occurrence.api.app.api.dto.organization.TeamDto;
 import br.com.occurrence.api.app.api.dto.organization.TeamFormDto;
-import br.com.occurrence.api.domain.mapper.SectorMapper;
 import br.com.occurrence.api.domain.mapper.TeamMapper;
-import br.com.occurrence.api.domain.model.organization.Sector;
 import br.com.occurrence.api.domain.model.organization.Team;
 import br.com.occurrence.api.domain.service.TeamService;
-import br.com.occurrence.api.domain.util.filter.SectorFilter;
 import br.com.occurrence.api.domain.util.filter.TeamFilter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -30,15 +26,14 @@ public class TeamController {
     private final TeamService teamService;
 
     @GetMapping
-    public ResponseEntity<Page<TeamDto>> findAll(@PageableDefault Pageable page,
-                                                 @RequestParam(required = false) TeamFilter filter) {
+    public ResponseEntity<Page<TeamDto>> findAll(@PageableDefault Pageable page, TeamFilter filter) {
         Page<Team> teams = teamService.findAll(page, filter);
         Page<TeamDto> teamsDto = teams.map(TeamMapper::toTeamDTO);
         return ResponseEntity.ok(teamsDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<TeamDto>> findAll(@RequestParam(required = false) TeamFilter filter) {
+    public ResponseEntity<List<TeamDto>> findAll(TeamFilter filter) {
         List<Team> teams = teamService.findAll(filter);
         List<TeamDto> teamsDto = teams.stream()
                 .map(TeamMapper::toTeamDTO)

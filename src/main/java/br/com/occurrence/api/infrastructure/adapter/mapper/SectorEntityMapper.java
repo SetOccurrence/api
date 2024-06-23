@@ -131,6 +131,7 @@ public class SectorEntityMapper {
         specification.setName(filter.name());
         specification.setResponsibleId(filter.responsible() != null ? filter.responsible().id() : null);
         specification.setResponsibleName(filter.responsible() != null ? filter.responsible().name() : null);
+        specification.setDepartmentId(filter.departmentId());
         specification.setStatus(filter.status() != null ? SectorEntity.Status.valueOf(filter.status().name()) : null);
         return specification;
     }

@@ -36,6 +36,13 @@ public class SectorSpecification implements Specification<SectorEntity> {
         filters.add(SectorSpecifications.responsibleNameEqual(responsibleName));
     }
 
+    public void setDepartmentId(String departmentId) {
+        if (Strings.isBlank(departmentId)) {
+            return;
+        }
+        filters.add(SectorSpecifications.departmentIdEqual(departmentId));
+    }
+
     public void setStatus(SectorEntity.Status status) {
         if (status == null) {
             return;

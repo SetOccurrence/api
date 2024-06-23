@@ -131,6 +131,7 @@ public class DepartmentEntityMapper {
         specification.setName(filter.name());
         specification.setResponsibleId(filter.responsible() != null ? filter.responsible().id() : null);
         specification.setResponsibleName(filter.responsible() != null ? filter.responsible().name() : null);
+        specification.setUnitId(filter.unitId());
         specification.setStatus(filter.status() != null ? DepartmentEntity.Status.valueOf(filter.status().name()) : null);
         return specification;
     }

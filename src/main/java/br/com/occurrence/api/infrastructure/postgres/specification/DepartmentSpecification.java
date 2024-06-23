@@ -29,6 +29,13 @@ public class DepartmentSpecification implements Specification<DepartmentEntity> 
         filters.add(DepartmentSpecifications.responsibleIdEqual(responsibleId));
     }
 
+    public void setUnitId(String unitId) {
+        if (Strings.isBlank(unitId)) {
+            return;
+        }
+        filters.add(DepartmentSpecifications.unitIdEqual(unitId));
+    }
+
     public void setResponsibleName(String responsibleName) {
         if (Strings.isBlank(responsibleName)) {
             return;

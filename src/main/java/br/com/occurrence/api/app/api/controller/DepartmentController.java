@@ -2,14 +2,10 @@ package br.com.occurrence.api.app.api.controller;
 
 import br.com.occurrence.api.app.api.dto.organization.DepartmentDto;
 import br.com.occurrence.api.app.api.dto.organization.DepartmentFormDto;
-import br.com.occurrence.api.app.api.dto.organization.UnitDto;
 import br.com.occurrence.api.domain.mapper.DepartmentMapper;
-import br.com.occurrence.api.domain.mapper.UnitMapper;
 import br.com.occurrence.api.domain.model.organization.Department;
-import br.com.occurrence.api.domain.model.organization.Unit;
 import br.com.occurrence.api.domain.service.DepartmentService;
 import br.com.occurrence.api.domain.util.filter.DepartmentFilter;
-import br.com.occurrence.api.domain.util.filter.UnitFilter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,15 +26,14 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @GetMapping
-    public ResponseEntity<Page<DepartmentDto>> findAll(@PageableDefault Pageable page,
-                                                       @RequestParam(required = false) DepartmentFilter filter) {
+    public ResponseEntity<Page<DepartmentDto>> findAll(@PageableDefault Pageable page, DepartmentFilter filter) {
         Page<Department> departments = departmentService.findAll(page, filter);
         Page<DepartmentDto> departmentsDto = departments.map(DepartmentMapper::toDepartmentDTO);
         return ResponseEntity.ok(departmentsDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<DepartmentDto>> findAll(@RequestParam(required = false) DepartmentFilter filter) {
+    public ResponseEntity<List<DepartmentDto>> findAll(DepartmentFilter filter) {
         List<Department> departments = departmentService.findAll(filter);
         List<DepartmentDto> departmentsDto = departments.stream()
                 .map(DepartmentMapper::toDepartmentDTO)

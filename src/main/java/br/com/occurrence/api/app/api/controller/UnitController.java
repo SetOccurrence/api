@@ -26,15 +26,14 @@ public class UnitController {
     private final UnitService unitService;
 
     @GetMapping
-    public ResponseEntity<Page<UnitDto>> findAll(@PageableDefault Pageable page,
-                                                 @RequestParam(required = false) UnitFilter filter) {
+    public ResponseEntity<Page<UnitDto>> findAll(@PageableDefault Pageable page, UnitFilter filter) {
         Page<Unit> units = unitService.findAll(page, filter);
         Page<UnitDto> unitsDto = units.map(UnitMapper::toUnitDTO);
         return ResponseEntity.ok(unitsDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<UnitDto>> findAll(@RequestParam(required = false) UnitFilter filter) {
+    public ResponseEntity<List<UnitDto>> findAll(UnitFilter filter) {
         List<Unit> units = unitService.findAll(filter);
         List<UnitDto> unitsDto = units.stream()
                 .map(UnitMapper::toUnitDTO)

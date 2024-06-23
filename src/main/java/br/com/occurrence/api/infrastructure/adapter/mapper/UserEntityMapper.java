@@ -77,6 +77,7 @@ public class UserEntityMapper {
         }
         UserSpecification specification = new UserSpecification();
         specification.setSearch(filter.getSearch());
+        specification.setTeamId(filter.getTeamId());
         specification.setStatus(filter.getStatus() != null ? UserEntity.Status.valueOf(filter.getStatus().name()) : null);
         return specification;
     }

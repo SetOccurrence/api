@@ -1,15 +1,11 @@
 package br.com.occurrence.api.app.api.controller;
 
-import br.com.occurrence.api.app.api.dto.organization.TeamDto;
 import br.com.occurrence.api.app.api.dto.organization.UserDto;
 import br.com.occurrence.api.app.api.dto.organization.UserFormDto;
-import br.com.occurrence.api.domain.mapper.TeamMapper;
 import br.com.occurrence.api.domain.mapper.UserMapper;
-import br.com.occurrence.api.domain.model.organization.Team;
 import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.service.UserCommandService;
 import br.com.occurrence.api.domain.service.UserReadService;
-import br.com.occurrence.api.domain.util.filter.TeamFilter;
 import br.com.occurrence.api.domain.util.filter.UserFilter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -34,15 +30,14 @@ public class UserController {
     private final UserCommandService userCommandService;
 
     @GetMapping
-    public ResponseEntity<Page<UserDto>> findAll(@PageableDefault Pageable page,
-                                                 @RequestParam(required = false) UserFilter filter) {
+    public ResponseEntity<Page<UserDto>> findAll(@PageableDefault Pageable page, UserFilter filter) {
         Page<User> users = userReadService.findAll(page, filter);
         Page<UserDto> usersDto = users.map(UserMapper::toUserDTO);
         return ResponseEntity.ok(usersDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<UserDto>> findAll(@RequestParam(required = false) UserFilter filter) {
+    public ResponseEntity<List<UserDto>> findAll(UserFilter filter) {
         List<User> users = userReadService.findAll(filter);
         List<UserDto> usersDto = users.stream()
                 .map(UserMapper::toUserDTO)

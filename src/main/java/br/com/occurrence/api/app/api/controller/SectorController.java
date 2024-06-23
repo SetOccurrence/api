@@ -1,14 +1,10 @@
 package br.com.occurrence.api.app.api.controller;
 
-import br.com.occurrence.api.app.api.dto.organization.DepartmentDto;
 import br.com.occurrence.api.app.api.dto.organization.SectorDto;
 import br.com.occurrence.api.app.api.dto.organization.SectorFormDto;
-import br.com.occurrence.api.domain.mapper.DepartmentMapper;
 import br.com.occurrence.api.domain.mapper.SectorMapper;
-import br.com.occurrence.api.domain.model.organization.Department;
 import br.com.occurrence.api.domain.model.organization.Sector;
 import br.com.occurrence.api.domain.service.SectorService;
-import br.com.occurrence.api.domain.util.filter.DepartmentFilter;
 import br.com.occurrence.api.domain.util.filter.SectorFilter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -30,15 +26,14 @@ public class SectorController {
     private final SectorService sectorService;
 
     @GetMapping
-    public ResponseEntity<Page<SectorDto>> findAll(@PageableDefault Pageable page,
-                                                   @RequestParam(required = false) SectorFilter filter) {
+    public ResponseEntity<Page<SectorDto>> findAll(@PageableDefault Pageable page, SectorFilter filter) {
         Page<Sector> sectors = sectorService.findAll(page, filter);
         Page<SectorDto> sectorsDto = sectors.map(SectorMapper::toSectorDTO);
         return ResponseEntity.ok(sectorsDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<SectorDto>> findAll(@RequestParam(required = false) SectorFilter filter) {
+    public ResponseEntity<List<SectorDto>> findAll(SectorFilter filter) {
         List<Sector> sectors = sectorService.findAll(filter);
         List<SectorDto> sectorsDto = sectors.stream()
                 .map(SectorMapper::toSectorDTO)
