@@ -4,7 +4,7 @@ import br.com.occurrence.api.app.api.dto.organization.commons.EntityDto;
 import br.com.occurrence.api.app.api.dto.organization.commons.OrganizationTreeDto;
 import br.com.occurrence.api.domain.mapper.UserMapper;
 import br.com.occurrence.api.domain.model.organization.*;
-import br.com.occurrence.api.domain.util.filter.UnitFilter;
+import br.com.occurrence.api.domain.util.filter.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +22,16 @@ public class OrganizationService {
     private final TeamService teamService;
     private final UserReadService userReadService;
     
-    public OrganizationTreeDto findOrgnanization() {
+    public OrganizationTreeDto findOrgnanization(OrganizationFilter filter) {
         
         List<OrganizationTreeDto.OrganizationTreeItemDto> unitsTree =  new LinkedList<>();
         
         //Units
-        List<Unit> units = unitService.findAll(null);
-        List<Department> departments = departmentService.findAll(null);
-        List<Sector> sectors = sectorService.findAll(null);
-        List<Team> teams = teamService.findAll(null);
-        List<User> noRelationUsers = userReadService.findAll(null).stream()
+        List<Unit> units = unitService.findAll(new UnitFilter(filter.search(), null, null));
+        List<Department> departments = departmentService.findAll(new DepartmentFilter(filter.search(), null, null, null));
+        List<Sector> sectors = sectorService.findAll(new SectorFilter(filter.search(), null, null, null));
+        List<Team> teams = teamService.findAll(new TeamFilter(filter.search(), null, null, null));
+        List<User> noRelationUsers = userReadService.findAll(new UserFilter().withSearch(filter.search())).stream()
                 .filter(user -> user.getTeam() == null)
                 .filter(user -> !Objects.equals(user.getLogin(), "admin"))
                 .toList();

@@ -18,7 +18,7 @@ public class OrganizationController {
 
     @GetMapping
     public ResponseEntity<OrganizationTreeDto> findAll(OrganizationFilter filter) {
-        return ResponseEntity.ok(organizationService.findOrgnanization());
+        return ResponseEntity.ok(organizationService.findOrgnanization(filter));
     }
 
 }
