@@ -26,7 +26,7 @@ public class OccurrenceKindService {
         return occurrenceKindRepository.findAll(pageable, filter);
     }
 
-    public OccurrenceKind findById(UUID id) {
+    public OccurrenceKind findById(String id) {
         return occurrenceKindRepository.findById(id)
                 .orElseThrow(OccurrenceKindNotFoundException::new);
     }
@@ -36,20 +36,19 @@ public class OccurrenceKindService {
         return occurrenceKindRepository.create(occurrenceKind);
     }
 
-    public OccurrenceKind update(UUID id, OccurrenceKindFormDto form) {
+    public OccurrenceKind update(String id, OccurrenceKindFormDto form) {
         OccurrenceKind occurrenceKind = findById(id);
-        //occurrenceKindMapper.updateOccurrenceKindFromDto(occurrenceKind, form);
-        //return occurrenceKindRepository.update(occurrenceKind);
-        return null;
+        occurrenceKindMapper.updateOccurrenceKindFromDto(occurrenceKind, form);
+        return occurrenceKindRepository.update(occurrenceKind);
     }
 
-    public OccurrenceKind logicallyDelete(UUID id) {
+    public OccurrenceKind logicallyDelete(String id) {
         OccurrenceKind occurrenceKind = findById(id);
         occurrenceKind.setStatus(OccurrenceKind.Status.DELETED);
         return occurrenceKindRepository.update(occurrenceKind);
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         occurrenceKindRepository.deleteById(id);
     }
 

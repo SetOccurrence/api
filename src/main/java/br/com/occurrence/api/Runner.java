@@ -27,6 +27,7 @@ public class Runner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         User admin = obtainUser("Administrador", "admin");
         User user = obtainUser("Jonatan", "jonatan_birck");
+        Unit unit = createUnit("Unidade A", user);
     }
 
     private User obtainUser(String name, String login) {

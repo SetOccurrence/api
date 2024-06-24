@@ -1,14 +1,9 @@
 package br.com.occurrence.api.infrastructure.adapter.mapper;
 
 import br.com.occurrence.api.domain.model.occurrence.OccurrenceKind;
-import br.com.occurrence.api.domain.model.occurrence.commons.flow.FlowMap;
-import br.com.occurrence.api.domain.model.occurrence.commons.step.Step;
+import br.com.occurrence.api.domain.util.filter.OccurrenceKindFilter;
 import br.com.occurrence.api.infrastructure.mongodb.entity.OccurrenceKindEntity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
-import java.util.List;
-import java.util.UUID;
+import br.com.occurrence.api.infrastructure.mongodb.specification.OccurrenceKindEntityCriteria;
 
 public class OccurrenceKindEntityMapper {
 
@@ -34,6 +29,12 @@ public class OccurrenceKindEntityMapper {
         occurrenceKind.setStatus(entity.getStatus());
         occurrenceKind.setFlowMap(entity.getFlowMap());
         return occurrenceKind;
+    }
+
+    public static OccurrenceKindEntityCriteria map(OccurrenceKindFilter filter) {
+        OccurrenceKindEntityCriteria criteria = new OccurrenceKindEntityCriteria();
+        criteria.setSearch(filter.search());
+        return criteria;
     }
 
 }

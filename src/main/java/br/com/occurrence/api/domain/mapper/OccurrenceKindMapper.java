@@ -18,6 +18,7 @@ import br.com.occurrence.api.domain.model.occurrence.commons.step.FormStep;
 import br.com.occurrence.api.domain.model.occurrence.commons.step.Step;
 import br.com.occurrence.api.domain.model.organization.Entity;
 import br.com.occurrence.api.domain.service.*;
+import br.com.occurrence.api.domain.util.PropertiesHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,9 @@ public class OccurrenceKindMapper {
     private final TeamService teamService;
     private final UserReadService userReadService;
 
-    //void updateOccurrenceKindFromDto(@MappingTarget OccurrenceKind occurrenceKind, OccurrenceKindFormDto form);
+    public void updateOccurrenceKindFromDto(OccurrenceKind occurrenceKind, OccurrenceKindFormDto form) {
+        PropertiesHelper.copyNonNullProperties(toOccurrenceKind(form), occurrenceKind);
+    }
 
     public OccurrenceKind toOccurrenceKind(OccurrenceKindFormDto form) {
         OccurrenceKind occurrenceKind = new OccurrenceKind();
@@ -68,6 +71,9 @@ public class OccurrenceKindMapper {
     }
 
     public FlowMap toFlowMap(FlowMapDto flowMap) {
+        if (flowMap == null) {
+            return null;
+        }
         LinkedList<Step> steps = flowMap.steps()
                 .stream()
                 .map(this::toStep)
@@ -76,6 +82,9 @@ public class OccurrenceKindMapper {
     }
 
     public StepDto toStepDto(Step step) {
+        if (step == null) {
+            return null;
+        }
         Step.Type type = step.getType();
         return switch (type) {
             case AUTHORIZATION -> toAuthorizationStepDto((AuthorizationStep) step);
@@ -84,6 +93,9 @@ public class OccurrenceKindMapper {
     }
 
     public Step toStep(StepDto stepDto) {
+        if (stepDto == null) {
+            return null;
+        }
         StepDto.Type type = stepDto.getType();
         return switch (type) {
             case AUTHORIZATION -> toAuthorizationStep((AuthorizationStepDto) stepDto);
@@ -92,6 +104,9 @@ public class OccurrenceKindMapper {
     }
 
     public AuthorizationStepDto toAuthorizationStepDto(AuthorizationStep authorizationStep) {
+        if (authorizationStep == null) {
+            return null;
+        }
         AuthorizationStepDto authorizationStepDto = new AuthorizationStepDto();
         authorizationStepDto.setName(authorizationStep.getName());
         authorizationStepDto.setDescription(authorizationStep.getDescription());
@@ -100,6 +115,9 @@ public class OccurrenceKindMapper {
     }
 
     public AuthorizationStep toAuthorizationStep(AuthorizationStepDto authorizationStepDto) {
+        if (authorizationStepDto == null) {
+            return null;
+        }
         AuthorizationStep authorizationStep = new AuthorizationStep();
         authorizationStep.setName(authorizationStepDto.getName());
         authorizationStep.setDescription(authorizationStepDto.getDescription());
@@ -108,6 +126,9 @@ public class OccurrenceKindMapper {
     }
 
     public FormStepDto toFormStepDto(FormStep formStep) {
+        if (formStep == null) {
+            return null;
+        }
         FormStepDto formStepDto = new FormStepDto();
         formStepDto.setName(formStep.getName());
         formStepDto.setDescription(formStep.getDescription());
@@ -117,10 +138,13 @@ public class OccurrenceKindMapper {
     }
 
     public FormStep toFormStep(FormStepDto formStepDto) {
+        if (formStepDto == null) {
+            return null;
+        }
         FormStep formStep = new FormStep();
         formStep.setName(formStepDto.getName());
         formStep.setDescription(formStepDto.getDescription());
-        //formStep.setEntity(toEntity(formStepDto.getEntityDto()));
+        formStep.setEntity(toEntity(formStepDto.getEntityDto()));
         formStep.setForm(toForm(formStepDto.getForm()));
         return formStep;
     }
@@ -150,6 +174,9 @@ public class OccurrenceKindMapper {
     }
 
     private FormDto toFormDto(Form form) {
+        if (form == null) {
+            return null;
+        }
         LinkedHashSet<QuestionDto> questions = form.getQuestions()
                 .stream()
                 .map(this::toQuestionDto)
@@ -158,6 +185,9 @@ public class OccurrenceKindMapper {
     }
 
     private Form toForm(FormDto formDto) {
+        if (formDto == null) {
+            return null;
+        }
         LinkedHashSet<Question> questions = formDto.questions()
                 .stream()
                 .map(this::toQuestion)
@@ -166,6 +196,9 @@ public class OccurrenceKindMapper {
     }
 
     private QuestionDto toQuestionDto(Question question) {
+        if (question == null) {
+            return null;
+        }
         Question.Type type = question.getType();
         return switch (type) {
             case SHORT_TEXT -> toShortTextQuestionDto((ShortTextQuestion) question);
@@ -183,6 +216,9 @@ public class OccurrenceKindMapper {
     }
 
     private Question toQuestion(QuestionDto questionDto) {
+        if (questionDto == null) {
+            return null;
+        }
         QuestionDto.Type type = questionDto.getType();
         return switch (type) {
             case SHORT_TEXT -> toShortTextQuestion((ShortTextQuestionDto) questionDto);

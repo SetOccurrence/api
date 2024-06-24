@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -26,20 +25,17 @@ public class OccurrenceKindController {
     private final OccurrenceKindMapper occurrenceKindMapper;
 
     @GetMapping
-    public ResponseEntity<Page<OccurrenceKindDto>> findAll(@PageableDefault Pageable page,
-                                                           @RequestParam(required = false) OccurrenceKindFilter filter) {
+    public ResponseEntity<Page<OccurrenceKindDto>> findAll(@PageableDefault Pageable page, OccurrenceKindFilter filter) {
         Page<OccurrenceKind> occurrencesKind = occurrenceKindService.findAll(page, filter);
-        //Page<OccurrenceKindDto> dtos = occurrencesKind.map(occurrenceKindMapper::toOccurrenceKindDto);
-        //return ResponseEntity.ok(dtos);
-        return null;
+        Page<OccurrenceKindDto> dtos = occurrencesKind.map(occurrenceKindMapper::toOccurrenceKindDto);
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OccurrenceKindDto> findById(@PathVariable UUID id) {
+    public ResponseEntity<OccurrenceKindDto> findById(@PathVariable String id) {
         OccurrenceKind occurrenceKind = occurrenceKindService.findById(id);
-        //OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
-        //return ResponseEntity.ok(dto);
-        return null;
+        OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -50,23 +46,21 @@ public class OccurrenceKindController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OccurrenceKindDto> update(@PathVariable UUID id, @RequestBody @Valid OccurrenceKindFormDto form) {
+    public ResponseEntity<OccurrenceKindDto> update(@PathVariable String id, @RequestBody OccurrenceKindFormDto form) {
         OccurrenceKind occurrenceKind = occurrenceKindService.update(id, form);
-        //OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
-        //return ResponseEntity.ok(dto);
-        return null;
+        OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
+        return ResponseEntity.ok(dto);
     }
 
     @PatchMapping("/delete/{id}")
-    public ResponseEntity<OccurrenceKindDto> logicallyDelete(@PathVariable UUID id) {
+    public ResponseEntity<OccurrenceKindDto> logicallyDelete(@PathVariable String id) {
         OccurrenceKind occurrenceKind = occurrenceKindService.logicallyDelete(id);
-        //OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
-        //return ResponseEntity.ok(dto);
-        return null;
+        OccurrenceKindDto dto = occurrenceKindMapper.toOccurrenceKindDto(occurrenceKind);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
         occurrenceKindService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

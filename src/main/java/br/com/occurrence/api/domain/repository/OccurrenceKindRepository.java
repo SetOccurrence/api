@@ -13,9 +13,9 @@ public interface OccurrenceKindRepository {
 
     Page<OccurrenceKind> findAll(Pageable pageable, OccurrenceKindFilter filter);
     List<OccurrenceKind> findAll(OccurrenceKindFilter filter);
-    Optional<OccurrenceKind> findById(UUID id);
+    Optional<OccurrenceKind> findById(String id);
     OccurrenceKind create(OccurrenceKind occurrenceKind);
     OccurrenceKind update(OccurrenceKind occurrenceKind);
-    void deleteById(UUID id);
+    void deleteById(String id);
 
 }
