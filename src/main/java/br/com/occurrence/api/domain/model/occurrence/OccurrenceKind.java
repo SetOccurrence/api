@@ -18,6 +18,7 @@ public class OccurrenceKind extends Auditable<User> {
     private String id;
     private String name;
     private String prefix;
+    private long instances;
     private String description;
     private String category;
     private Status status = Status.ACTIVE;
@@ -31,6 +32,10 @@ public class OccurrenceKind extends Auditable<User> {
         DELETED("Deleted");
 
         private final String description;
+    }
+
+    public String getOccurrenceName() {
+        return String.format("%s-%04d", prefix, instances);
     }
 
 }

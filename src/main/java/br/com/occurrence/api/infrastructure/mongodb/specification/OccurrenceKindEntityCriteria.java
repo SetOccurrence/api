@@ -1,11 +1,9 @@
 package br.com.occurrence.api.infrastructure.mongodb.specification;
 
-import br.com.occurrence.api.domain.model.occurrence.OccurrenceKind;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

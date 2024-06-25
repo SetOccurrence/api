@@ -55,6 +55,7 @@ public class OccurrenceKindMapper {
             occurrenceKind.getId(),
             occurrenceKind.getName(),
             occurrenceKind.getPrefix(),
+            occurrenceKind.getInstances(),
             occurrenceKind.getDescription(),
             occurrenceKind.getCategory(),
             OccurrenceKindDto.Status.valueOf(occurrenceKind.getStatus().name()),

@@ -42,6 +42,10 @@ public class OccurrenceKindService {
         return occurrenceKindRepository.update(occurrenceKind);
     }
 
+    public OccurrenceKind update(OccurrenceKind occurrenceKind) {
+        return occurrenceKindRepository.update(occurrenceKind);
+    }
+
     public OccurrenceKind logicallyDelete(String id) {
         OccurrenceKind occurrenceKind = findById(id);
         occurrenceKind.setStatus(OccurrenceKind.Status.DELETED);

@@ -4,7 +4,9 @@ import br.com.occurrence.api.domain.model.occurrence.OccurrenceKind;
 import br.com.occurrence.api.domain.util.filter.OccurrenceKindFilter;
 import br.com.occurrence.api.infrastructure.mongodb.entity.OccurrenceKindEntity;
 import br.com.occurrence.api.infrastructure.mongodb.specification.OccurrenceKindEntityCriteria;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class OccurrenceKindEntityMapper {
 
     public static OccurrenceKindEntity toOccurrenceKindEntity(OccurrenceKind occurrenceKind) {
@@ -12,6 +14,7 @@ public class OccurrenceKindEntityMapper {
         entity.setId(occurrenceKind.getId());
         entity.setName(occurrenceKind.getName());
         entity.setPrefix(occurrenceKind.getPrefix());
+        entity.setInstances(occurrenceKind.getInstances());
         entity.setDescription(occurrenceKind.getDescription());
         entity.setCategory(occurrenceKind.getCategory());
         entity.setStatus(occurrenceKind.getStatus());
@@ -24,6 +27,7 @@ public class OccurrenceKindEntityMapper {
         occurrenceKind.setId(entity.getId());
         occurrenceKind.setName(entity.getName());
         occurrenceKind.setPrefix(entity.getPrefix());
+        occurrenceKind.setInstances(entity.getInstances());
         occurrenceKind.setDescription(entity.getDescription());
         occurrenceKind.setCategory(entity.getCategory());
         occurrenceKind.setStatus(entity.getStatus());

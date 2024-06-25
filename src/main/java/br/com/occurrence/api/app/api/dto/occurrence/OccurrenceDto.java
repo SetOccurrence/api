@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record OccurrenceDto(
-        UUID id,
+        String id,
         String name,
         OccurrenceKindDto occurrenceKind,
         OccurrenceDto.Status status,

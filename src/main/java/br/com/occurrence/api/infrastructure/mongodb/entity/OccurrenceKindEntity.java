@@ -16,6 +16,7 @@ public class OccurrenceKindEntity {
     private String id;
     private String name;
     private String prefix;
+    private long instances;
     private String description;
     private String category;
     private OccurrenceKind.Status status = OccurrenceKind.Status.ACTIVE;

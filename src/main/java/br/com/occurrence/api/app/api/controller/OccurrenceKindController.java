@@ -18,7 +18,7 @@ import java.net.URI;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/occurrence-kind")
+@RequestMapping("/api/v1/occurrences-kind")
 public class OccurrenceKindController {
 
     private final OccurrenceKindService occurrenceKindService;

@@ -8,6 +8,7 @@ public record OccurrenceKindDto(
         String id,
         String name,
         String prefix,
+        long instances,
         String description,
         String category,
         Status status,

@@ -1,17 +1,21 @@
 package br.com.occurrence.api.domain.mapper;
 
-import br.com.occurrence.api.app.api.dto.occurrence.OccurrenceDto;
 import br.com.occurrence.api.app.api.dto.occurrence.OccurrenceFormDto;
 import br.com.occurrence.api.domain.model.occurrence.Occurrence;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.ReportingPolicy;
+import br.com.occurrence.api.domain.service.OccurrenceKindService;
+import br.com.occurrence.api.domain.service.OccurrenceService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface OccurrenceMapper {
+@Component
+@AllArgsConstructor
+public class OccurrenceMapper {
+    
+    public Occurrence toOccurrence(OccurrenceFormDto form) {
+        return null;
+    }
 
-    //Occurrence toOccurrence(OccurrenceFormDto form);
     //OccurrenceDto toOccurrenceDto(Occurrence occurrence);
-    void updateOccurrenceFromDto(@MappingTarget Occurrence occurrence, OccurrenceFormDto form);
+    //void updateOccurrenceFromDto(@MappingTarget Occurrence occurrence, OccurrenceFormDto form);
 
 }

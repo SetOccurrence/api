@@ -1,9 +1,6 @@
 package br.com.occurrence.api.app.api.dto.occurrence.commons.flow;
 
 import br.com.occurrence.api.app.api.dto.occurrence.commons.form.answer.AnswerDto;
-import br.com.occurrence.api.domain.model.occurrence.commons.flow.FlowRegistry;
-import br.com.occurrence.api.domain.model.occurrence.commons.form.Form;
-import br.com.occurrence.api.domain.model.occurrence.commons.step.FormStep;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FormRegistryDto extends FlowRegistry {
+public class FormRegistryDto extends FlowRegistryDto {
 
     private List<AnswerDto> answers;
-
-    public Form getForm() {
-        return ((FormStep) super.step).getForm();
-    }
 
 }
