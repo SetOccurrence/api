@@ -16,7 +16,7 @@ public class UserSpecifications {
 
     public static Specification<UserEntity> nameLike(String name) {
         return (Root<UserEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.like(root.get("name"), name);
+                builder.like(root.get("name"), "%" + name + "%");
     }
 
     public static Specification<UserEntity> emailLike(String email) {

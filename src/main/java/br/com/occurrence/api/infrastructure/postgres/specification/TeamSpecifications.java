@@ -17,7 +17,7 @@ public class TeamSpecifications {
 
     public static Specification<TeamEntity> nameLike(String name) {
         return (Root<TeamEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) ->
-                builder.like(root.get("name"), name);
+                builder.like(root.get("name"), "%" + name + "%");
     }
 
     public static Specification<TeamEntity> responsibleIdEqual(String responsibleId) {
