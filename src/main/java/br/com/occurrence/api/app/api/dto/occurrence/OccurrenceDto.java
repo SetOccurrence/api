@@ -5,6 +5,7 @@ import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.FlowDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,9 @@ public record OccurrenceDto(
         OccurrenceKindDto occurrenceKind,
         OccurrenceDto.Status status,
         FlowDto flow,
-        List<CommentDto> comments) {
+        List<CommentDto> comments,
+        String createdBy,
+        LocalDateTime createdAt) {
 
     @Getter
     @AllArgsConstructor

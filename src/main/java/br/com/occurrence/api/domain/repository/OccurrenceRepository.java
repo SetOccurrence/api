@@ -7,15 +7,14 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface OccurrenceRepository {
 
     Page<Occurrence> findAll(Pageable pageable, OccurrenceFilter filter);
     List<Occurrence> findAll(OccurrenceFilter filter);
-    Optional<Occurrence> findById(UUID id);
+    Optional<Occurrence> findById(String id);
     Occurrence create(Occurrence occurrence);
     Occurrence update(Occurrence occurrence);
-    void deleteById(UUID id);
+    void deleteById(String id);
 
 }

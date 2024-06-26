@@ -1,5 +1,6 @@
 package br.com.occurrence.api.domain.model.occurrence.commons.flow;
 
+import br.com.occurrence.api.domain.model.occurrence.commons.step.FormStep;
 import br.com.occurrence.api.domain.model.occurrence.commons.step.Step;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,5 +16,9 @@ import java.util.LinkedList;
 public class FlowMap {
 
     private LinkedList<Step> steps;
+
+    public FormStep getFirstStep() {
+        return (FormStep) steps.get(0);
+    }
 
 }

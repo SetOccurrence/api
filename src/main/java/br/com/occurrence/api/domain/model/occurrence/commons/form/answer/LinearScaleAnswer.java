@@ -10,8 +10,13 @@ public class LinearScaleAnswer extends Answer {
 
     private int scaleIndex;
 
-    public LinearScaleAnswer(LinearScaleQuestion question) {
-        super(question);
+    @Override
+    public boolean isValid() {
+        if (super.question.isOptional()) {
+            return true;
+        }
+        LinearScaleQuestion question = (LinearScaleQuestion) super.question;
+        return question.getMaxScale() >= scaleIndex && question.getMinScale() <= scaleIndex;
     }
 
 }

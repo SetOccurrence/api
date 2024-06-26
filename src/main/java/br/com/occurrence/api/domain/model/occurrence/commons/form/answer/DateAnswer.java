@@ -1,6 +1,5 @@
 package br.com.occurrence.api.domain.model.occurrence.commons.form.answer;
 
-import br.com.occurrence.api.domain.model.occurrence.commons.form.question.DateQuestion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +11,12 @@ public class DateAnswer extends Answer {
 
     private LocalDate date;
 
-    public DateAnswer(DateQuestion question) {
-        super(question);
+    @Override
+    public boolean isValid() {
+        if (super.question.isOptional()) {
+            return true;
+        }
+        return date != null;
     }
 
 }

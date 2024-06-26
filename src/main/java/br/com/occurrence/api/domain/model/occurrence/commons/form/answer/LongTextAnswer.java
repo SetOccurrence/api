@@ -1,6 +1,6 @@
 package br.com.occurrence.api.domain.model.occurrence.commons.form.answer;
 
-import br.com.occurrence.api.domain.model.occurrence.commons.form.question.LongTextQuestion;
+import io.micrometer.common.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,12 @@ public class LongTextAnswer extends Answer {
 
     private String answer;
 
-    public LongTextAnswer(LongTextQuestion question) {
-        super(question);
+    @Override
+    public boolean isValid() {
+        if (super.question.isOptional()) {
+            return true;
+        }
+        return !StringUtils.isBlank(answer);
     }
 
 }

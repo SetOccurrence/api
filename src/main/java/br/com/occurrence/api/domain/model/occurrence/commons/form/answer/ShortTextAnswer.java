@@ -1,6 +1,6 @@
 package br.com.occurrence.api.domain.model.occurrence.commons.form.answer;
 
-import br.com.occurrence.api.domain.model.occurrence.commons.form.question.ShortTextQuestion;
+import io.micrometer.common.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,12 @@ public class ShortTextAnswer extends Answer {
 
     private String answer;
 
-    public ShortTextAnswer(ShortTextQuestion question) {
-        super(question);
+    @Override
+    public boolean isValid() {
+        if (super.question.isOptional()) {
+            return true;
+        }
+        return !StringUtils.isBlank(answer);
     }
 
 }

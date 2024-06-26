@@ -13,6 +13,8 @@ public class OccurrenceKindEntityMapper {
         OccurrenceKindEntity entity = new OccurrenceKindEntity();
         entity.setId(occurrenceKind.getId());
         entity.setName(occurrenceKind.getName());
+        entity.setIcon(occurrenceKind.getIcon());
+        entity.setColor(occurrenceKind.getColor());
         entity.setPrefix(occurrenceKind.getPrefix());
         entity.setInstances(occurrenceKind.getInstances());
         entity.setDescription(occurrenceKind.getDescription());
@@ -26,6 +28,8 @@ public class OccurrenceKindEntityMapper {
         OccurrenceKind occurrenceKind = new OccurrenceKind();
         occurrenceKind.setId(entity.getId());
         occurrenceKind.setName(entity.getName());
+        occurrenceKind.setIcon(entity.getIcon());
+        occurrenceKind.setColor(entity.getColor());
         occurrenceKind.setPrefix(entity.getPrefix());
         occurrenceKind.setInstances(entity.getInstances());
         occurrenceKind.setDescription(entity.getDescription());

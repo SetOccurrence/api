@@ -54,9 +54,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> me() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-        UserDto dto = UserMapper.toUserDTO(user);
+        UserDto dto = UserMapper.toUserDTO(UserReadService.me());
         return ResponseEntity.ok(dto);
     }
 

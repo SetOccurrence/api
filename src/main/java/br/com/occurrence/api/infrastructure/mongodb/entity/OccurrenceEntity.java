@@ -1,29 +1,29 @@
 package br.com.occurrence.api.infrastructure.mongodb.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import br.com.occurrence.api.domain.model.occurrence.Occurrence;
+import br.com.occurrence.api.domain.model.occurrence.commons.Comment;
+import br.com.occurrence.api.domain.model.occurrence.commons.flow.Flow;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
-//@Entity
-//@Document(collection = "occurrences")
+@Document(collection = "occurrences")
 public class OccurrenceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    private int instance;
-
-    //public String getName() {
-    //    return String.format("%s-%04d", occurrenceKind.getPrefix(), instance);
-    //}
+    private String id;
+    private String name;
+    private String occurrenceKindId;
+    private Occurrence.Status status;
+    private Flow flow;
+    private List<Comment> comments;
+    private String createdBy;
+    private LocalDateTime createdAt;
 
 }

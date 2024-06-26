@@ -14,6 +14,11 @@ public class AuthorizationRegistry extends FlowRegistry {
     private Action action;
     private String observation;
 
+    @Override
+    public Type getType() {
+        return Type.AUTHORIZATION;
+    }
+
     public enum Action {
         APPROVE,
         REJECT,

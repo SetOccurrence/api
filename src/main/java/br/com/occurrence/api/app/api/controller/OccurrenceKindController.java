@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -28,6 +29,15 @@ public class OccurrenceKindController {
     public ResponseEntity<Page<OccurrenceKindDto>> findAll(@PageableDefault Pageable page, OccurrenceKindFilter filter) {
         Page<OccurrenceKind> occurrencesKind = occurrenceKindService.findAll(page, filter);
         Page<OccurrenceKindDto> dtos = occurrencesKind.map(occurrenceKindMapper::toOccurrenceKindDto);
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<OccurrenceKindDto>> findAll(OccurrenceKindFilter filter) {
+        List<OccurrenceKind> occurrencesKind = occurrenceKindService.findAll(filter);
+        List<OccurrenceKindDto> dtos = occurrencesKind.stream()
+                .map(occurrenceKindMapper::toOccurrenceKindDto)
+                .toList();
         return ResponseEntity.ok(dtos);
     }
 

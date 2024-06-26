@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 
 public record OccurrenceKindFormDto(
         @NotBlank String name,
+        @NotBlank String icon,
+        @NotBlank String color,
         @NotBlank String prefix,
         String description,
         @NotBlank String category,

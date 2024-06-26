@@ -1,6 +1,9 @@
 package br.com.occurrence.api.app.api.dto.occurrence.commons.flow;
 
 import br.com.occurrence.api.app.api.dto.occurrence.commons.form.answer.AnswerDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class FormRegistryDto extends FlowRegistryDto {
 
+    @Valid
+    @NotEmpty
+    @NotNull
     private List<AnswerDto> answers;
 
 }

@@ -22,4 +22,9 @@ public class FormRegistry extends FlowRegistry {
         return ((FormStep) super.step).getForm();
     }
 
+    @Override
+    public Type getType() {
+        return Type.FORM;
+    }
+
 }

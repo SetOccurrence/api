@@ -160,7 +160,21 @@ public class GlobalExceptionHandler {
         return new ApiExceptionDetail(FORBIDDEN, e);
     }
 
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(WrongStepOccurrenceException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleWrongStepOccurrenceException(WrongStepOccurrenceException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
 
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(InvalidFormException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleWrongStepOccurrenceException(InvalidFormException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
 
     private static String formatLog(Exception e) {
         return String.format("%s: %s", e.getClass().getSimpleName(), e.getMessage());

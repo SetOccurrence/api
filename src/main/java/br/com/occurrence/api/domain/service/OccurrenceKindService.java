@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,6 +24,10 @@ public class OccurrenceKindService {
 
     public Page<OccurrenceKind> findAll(Pageable pageable, OccurrenceKindFilter filter) {
         return occurrenceKindRepository.findAll(pageable, filter);
+    }
+
+    public List<OccurrenceKind> findAll(OccurrenceKindFilter filter) {
+        return occurrenceKindRepository.findAll(filter);
     }
 
     public OccurrenceKind findById(String id) {

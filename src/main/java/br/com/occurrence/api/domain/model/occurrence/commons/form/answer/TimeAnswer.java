@@ -1,6 +1,5 @@
 package br.com.occurrence.api.domain.model.occurrence.commons.form.answer;
 
-import br.com.occurrence.api.domain.model.occurrence.commons.form.question.TimeQuestion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +11,12 @@ public class TimeAnswer extends Answer {
 
     private LocalTime time;
 
-    public TimeAnswer(TimeQuestion question) {
-        super(question);
+    @Override
+    public boolean isValid() {
+        if (super.question.isOptional()) {
+            return true;
+        }
+        return time != null;
     }
 
 }

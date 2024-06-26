@@ -1,5 +1,6 @@
 package br.com.occurrence.api.app.api.dto.occurrence.commons.form.question;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +8,11 @@ import lombok.Setter;
 @Setter
 public abstract class QuestionDto {
 
+    @NotBlank
     protected String name;
+
     protected String description;
+
     protected boolean optional;
 
     public abstract Type getType();

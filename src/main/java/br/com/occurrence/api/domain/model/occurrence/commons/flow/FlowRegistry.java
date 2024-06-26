@@ -15,4 +15,11 @@ public abstract class FlowRegistry {
     protected User resolver;
     protected LocalDateTime resolvedAt;
 
+    public abstract Type getType();
+
+    public enum Type {
+        AUTHORIZATION,
+        FORM
+    }
+
 }
