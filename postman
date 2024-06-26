@@ -438,6 +438,50 @@
 					]
 				},
 				{
+					"name": "department",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/departments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"departments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findAll - list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "findAll",
 					"request": {
 						"method": "GET",
@@ -453,6 +497,68 @@
 				{
 					"name": "kind",
 					"item": [
+						{
+							"name": "findAll - list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/occurrence-kind",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"occurrence-kind"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findAll - page",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/occurrence-kind",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"occurrence-kind"
+									]
+								}
+							},
+							"response": []
+						},
 						{
 							"name": "create",
 							"request": {
@@ -470,7 +576,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \r\n}",
+									"raw": "{\r\n    \"name\": \"Solicitação de férias\",\r\n    \"prefix\": \"SF\",\r\n    \"description\": \"Cadastra para solicitar férias\",\r\n    \"category\": \"Funcionarios\",\r\n    \"flowMap\": {\r\n        \"steps\": [\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Registro solicitação\",\r\n                \"description\": \"Etapa para registro da solicitação de férias\",\r\n                \"entityDto\": null,\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data inicial\",\r\n                            \"description\": \"Selecione o inicio das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data final\",\r\n                            \"description\": \"Selecione o fim das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreve alguma observação\",\r\n                            \"optional\": true\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Registro solicitação\",\r\n                \"description\": \"Etapa para registro da solicitação de férias\",\r\n                \"entityDto\": null,\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data inicial\",\r\n                            \"description\": \"Selecione o inicio das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data final\",\r\n                            \"description\": \"Selecione o fim das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": true\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"AUTHORIZATION\",\r\n                \"name\": \"Aprovação liderança\",\r\n                \"description\": \"Etapa para aprovar a solicitação de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"4b49421c-7a54-438c-bf5c-80125d89fac1\",\r\n                    \"type\": \"USER\"\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Efetuação das férias (RH)\",\r\n                \"description\": \"Etapa para formalização das de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"4b49421c-7a54-438c-bf5c-80125d89fac1\",\r\n                    \"type\": \"SECTOR\"\r\n                },\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": false\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -492,8 +598,102 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Solicitação de férias V2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/occurrence-kind/6679fc8f9b751d4b83393e78",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"occurrence-kind",
+										"6679fc8f9b751d4b83393e78"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/occurrences-kind/667a03110ac18052f39fffcd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"occurrences-kind",
+										"667a03110ac18052f39fffcd"
+									]
+								}
+							},
+							"response": []
 						}
 					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/occurrence-kind",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"occurrence-kind"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -513,7 +713,7 @@
 					"    raw: JSON.stringify(",
 					"        {",
 					"            \"login\": \"admin\",",
-					"            \"password\": \"admin\"",
+					"            \"password\": \"teste123\"",
 					"        })",
 					"  }",
 					"};",
