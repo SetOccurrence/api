@@ -34,7 +34,6 @@ public class OccurrenceService {
 
     private final OccurrenceKindService occurrenceKindService;
     private final OccurrenceRepository occurrenceRepository;
-    private final OccurrenceMapper occurrenceMapper;
 
     public Page<Occurrence> findAll(Pageable pageable, OccurrenceFilter filter) {
         return occurrenceRepository.findAll(pageable, filter);
@@ -72,13 +71,6 @@ public class OccurrenceService {
         long instance = kind.getInstances() + 1;
         kind.setInstances(instance);
         return occurrenceKindService.update(kind);
-    }
-
-    public Occurrence update(String id, OccurrenceFormDto form) {
-        //Occurrence occurrence = findById(id);
-        //occurrenceMapper.updateOccurrenceFromDto(occurrence, form);
-        //return occurrenceRepository.update(occurrence);
-        return null;
     }
 
     public Occurrence logicallyDelete(String id) {
