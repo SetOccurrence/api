@@ -12,8 +12,30 @@
 				{
 					"name": "auth",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"admin\",\r\n    \"password\": \"teste123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
 					},
 					"response": []
 				}
@@ -28,19 +50,65 @@
 						{
 							"name": "me",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/users/me",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"me"
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"jonatan_birck\",\r\n  \"enabled\": true,\r\n  \"email\": \"jonatanbirck@gmail.com\",\r\n  \"credentials\": [\r\n\t\t{\r\n\t\t\t\"type\": \"password\", \r\n\t\t\t\"value\": \"senhaDoCara\"\r\n\t\t}\r\n\t]\r\n}",
+									"raw": "{\r\n  \"name\": \"Jonatan Birck 2\",\r\n  \"email\": \"jonatanbirck2@gmail.com\",\r\n  \"login\": \"jonatan_birck2\",\r\n  \"password\": \"teste123\",\r\n  \"teamId\": \"95111ab5-2ca2-44e0-8781-5c82683ccbd5\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"51-95363100\"\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -48,7 +116,17 @@
 									}
 								},
 								"url": {
-									"raw": ""
+									"raw": "http://localhost:8080/api/v1/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
 								}
 							},
 							"response": []
@@ -166,7 +244,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Jonatan Birck2\",\r\n  \"email\": \"jonatanbirck@gmail.com\",\r\n  \"login\": \"jonatan_birck\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"51-995363100\"\r\n  }\r\n}",
+									"raw": "{\r\n  \"name\": \"Jonatan Birck\",\r\n  \"email\": \"jonatanbirck@gmail.com\",\r\n  \"login\": \"jonatan_birck\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"51-995363100\"\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -244,7 +322,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"jonatan_birck\",\r\n  \"enabled\": true,\r\n  \"email\": \"jonatanbirck@gmail.com\",\r\n  \"credentials\": [\r\n\t\t{\r\n\t\t\t\"type\": \"password\", \r\n\t\t\t\"value\": \"senhaDoCara\"\r\n\t\t}\r\n\t]\r\n}",
+									"raw": "{\r\n    \"name\": \"Unidade C\",\r\n    \"description\": \"unidade C\",\r\n    \"responsibleId\": \"9470b9ed-24d2-454d-bcb4-9c0a4acdced3\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"number\": \"\",\r\n        \"complement\": \"\",\r\n        \"neighborhood\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"country\": \"\",\r\n        \"cep\": \"\"\r\n    },\r\n    \"contact\": {\r\n        \"email\": \"\",\r\n        \"phoneNumber\": \"\",\r\n        \"description\": \"\"\r\n    }\r\n\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -252,7 +330,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/users",
+									"raw": "http://localhost:8080/api/v1/units",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -261,7 +339,7 @@
 									"path": [
 										"api",
 										"v1",
-										"users"
+										"units"
 									]
 								}
 							},
@@ -326,6 +404,23 @@
 										"v1",
 										"units",
 										"list"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Unidade",
+											"disabled": true
+										},
+										{
+											"key": "responsible.name",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": null,
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -379,7 +474,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Jonatan Birck2\",\r\n  \"email\": \"jonatanbirck@gmail.com\",\r\n  \"login\": \"jonatan_birck\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"51-995363100\"\r\n  }\r\n}",
+									"raw": "{\r\n    \"description\": \"unidade A123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -387,7 +482,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/users/a5ba1c6a-382d-4602-b678-6d50b77e0a8c",
+									"raw": "http://localhost:8080/api/v1/units/78fcc9e8-3412-4812-98d0-9cd7e340b10e",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -396,8 +491,8 @@
 									"path": [
 										"api",
 										"v1",
-										"users",
-										"a5ba1c6a-382d-4602-b678-6d50b77e0a8c"
+										"units",
+										"78fcc9e8-3412-4812-98d0-9cd7e340b10e"
 									]
 								}
 							},
@@ -443,8 +538,27 @@
 						{
 							"name": "create",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Department B\",\r\n    \"description\": \"unidade B\",\r\n    \"responsibleId\": \"0f845124-6670-42af-83a8-211af1a5fded\",\r\n    \"unitId\": \"2939db41-f727-4059-8e97-84b8e48378a2\",\r\n    \"contact\": {\r\n        \"email\": \"\",\r\n        \"phoneNumber\": \"\",\r\n        \"description\": \"\"\r\n    }\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:8080/api/v1/departments",
 									"protocol": "http",
@@ -475,7 +589,33 @@
 									]
 								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/departments/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"departments",
+										"list"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "DXepar",
+											"disabled": true
+										},
+										{
+											"key": "unitId",
+											"value": "ea5f9198-a0ea-4e44-8c82-870c5e25862b",
+											"disabled": true
+										}
+									]
+								}
 							},
 							"response": []
 						}
@@ -487,8 +627,40 @@
 						{
 							"name": "create",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Sector A\",\r\n    \"description\": \"sector A\",\r\n    \"responsibleId\": \"0f845124-6670-42af-83a8-211af1a5fded\",\r\n    \"departmentId\": \"61c89b2d-9764-4016-8bd9-cccbba257478\",\r\n    \"contact\": {\r\n        \"email\": \"\",\r\n        \"phoneNumber\": \"\",\r\n        \"description\": \"\"\r\n    }\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/sectors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"sectors"
+									]
+								}
 							},
 							"response": []
 						},
@@ -532,8 +704,27 @@
 						{
 							"name": "create",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Team A\",\r\n    \"description\": \"team A\",\r\n    \"responsibleId\": \"0f845124-6670-42af-83a8-211af1a5fded\",\r\n    \"sectorId\": \"58b85a8a-5a51-42a6-a4e8-cf31aa92f6a6\",\r\n    \"contact\": {\r\n        \"email\": \"\",\r\n        \"phoneNumber\": \"\",\r\n        \"description\": \"\"\r\n    }\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:8080/api/v1/teams",
 									"protocol": "http",
@@ -587,8 +778,31 @@
 				{
 					"name": "findAll",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/organization",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"organization"
+							]
+						}
 					},
 					"response": []
 				}
@@ -647,7 +861,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/occurrence-kind",
+									"raw": "http://localhost:8080/api/v1/occurrences-kind",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -656,7 +870,7 @@
 									"path": [
 										"api",
 										"v1",
-										"occurrence-kind"
+										"occurrences-kind"
 									]
 								}
 							},
@@ -679,7 +893,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Solicitação de férias\",\r\n    \"prefix\": \"SF\",\r\n    \"description\": \"Cadastra para solicitar férias\",\r\n    \"category\": \"Funcionarios\",\r\n    \"flowMap\": {\r\n        \"steps\": [\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Registro solicitação\",\r\n                \"description\": \"Etapa para registro da solicitação de férias\",\r\n                \"entityDto\": null,\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data inicial\",\r\n                            \"description\": \"Selecione o inicio das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data final\",\r\n                            \"description\": \"Selecione o fim das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreve alguma observação\",\r\n                            \"optional\": true\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Registro solicitação\",\r\n                \"description\": \"Etapa para registro da solicitação de férias\",\r\n                \"entityDto\": null,\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data inicial\",\r\n                            \"description\": \"Selecione o inicio das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data final\",\r\n                            \"description\": \"Selecione o fim das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": true\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"AUTHORIZATION\",\r\n                \"name\": \"Aprovação liderança\",\r\n                \"description\": \"Etapa para aprovar a solicitação de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"4b49421c-7a54-438c-bf5c-80125d89fac1\",\r\n                    \"type\": \"USER\"\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Efetuação das férias (RH)\",\r\n                \"description\": \"Etapa para formalização das de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"4b49421c-7a54-438c-bf5c-80125d89fac1\",\r\n                    \"type\": \"SECTOR\"\r\n                },\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": false\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+									"raw": "{\r\n    \"name\": \"Solicitação de férias\",\r\n    \"prefix\": \"SF\",\r\n    \"icon\": \"USER\",\r\n    \"color\": \"GREEN\",\r\n    \"description\": \"Cadastra para solicitar férias\",\r\n    \"category\": \"Funcionarios\",\r\n    \"flowMap\": {\r\n        \"steps\": [\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Registro solicitação\",\r\n                \"description\": \"Etapa para registro da solicitação de férias\",\r\n                \"entityDto\": null,\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data inicial\",\r\n                            \"description\": \"Selecione o inicio das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"DATE\",\r\n                            \"name\": \"Data final\",\r\n                            \"description\": \"Selecione o fim das férias\",\r\n                            \"optional\": false\r\n                        },\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": true\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"AUTHORIZATION\",\r\n                \"name\": \"Aprovação liderança\",\r\n                \"description\": \"Etapa para aprovar a solicitação de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"0f845124-6670-42af-83a8-211af1a5fded\",\r\n                    \"type\": \"USER\"\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"FORM\",\r\n                \"name\": \"Efetuação das férias (RH)\",\r\n                \"description\": \"Etapa para formalização das de férias\",\r\n                \"entityDto\": {\r\n                    \"id\": \"2939db41-f727-4059-8e97-84b8e48378a2\",\r\n                    \"type\": \"UNIT\"\r\n                },\r\n                \"form\": {\r\n                    \"questions\": [\r\n                        {\r\n                            \"type\": \"SHORT_TEXT\",\r\n                            \"name\": \"Observações\",\r\n                            \"description\": \"Descreva alguma observação\",\r\n                            \"optional\": false\r\n                        }\r\n                    ]\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -687,7 +901,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/occurrence-kind",
+									"raw": "http://localhost:8080/api/v1/occurrences-kind",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -696,7 +910,7 @@
 									"path": [
 										"api",
 										"v1",
-										"occurrence-kind"
+										"occurrences-kind"
 									]
 								}
 							},
@@ -727,7 +941,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/occurrence-kind/6679fc8f9b751d4b83393e78",
+									"raw": "http://localhost:8080/api/v1/occurrences-kind/667a03d60ac18052f39fffce",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -736,8 +950,8 @@
 									"path": [
 										"api",
 										"v1",
-										"occurrence-kind",
-										"6679fc8f9b751d4b83393e78"
+										"occurrences-kind",
+										"667a03d60ac18052f39fffce"
 									]
 								}
 							},
@@ -780,10 +994,29 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"occurrenceKindId\": \"667ab939cc9b3a4b145a37fe\",\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Registro solicitação\",\r\n            \"type\": \"FORM\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data inicial\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-06-24\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data final\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-07-08\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Observações\",\r\n                    \"type\": \"SHORT_TEXT\"\r\n                },\r\n                \"answer\": \"coitadinho\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/occurrence-kind",
+							"raw": "http://localhost:8080/api/v1/occurrences",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -792,7 +1025,7 @@
 							"path": [
 								"api",
 								"v1",
-								"occurrence-kind"
+								"occurrences"
 							]
 						}
 					},
