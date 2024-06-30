@@ -2,6 +2,7 @@ package br.com.occurrence.api.infrastructure.adapter.mapper;
 
 import br.com.occurrence.api.domain.model.occurrence.Occurrence;
 import br.com.occurrence.api.domain.service.OccurrenceKindService;
+import br.com.occurrence.api.domain.util.exception.OccurrenceKindNotFoundException;
 import br.com.occurrence.api.domain.util.filter.OccurrenceFilter;
 import br.com.occurrence.api.infrastructure.mongodb.entity.OccurrenceEntity;
 import br.com.occurrence.api.infrastructure.mongodb.specification.OccurrenceEntityCriteria;
@@ -32,7 +33,11 @@ public class OccurrenceEntityMapper {
         occurrence.setId(entity.getId());
         occurrence.setName(entity.getName());
         occurrence.setStatus(entity.getStatus());
-        occurrence.setOccurrenceKind(occurrenceKindService.findById(entity.getOccurrenceKindId()));
+        try {
+            occurrence.setOccurrenceKind(occurrenceKindService.findById(entity.getOccurrenceKindId()));
+        } catch (OccurrenceKindNotFoundException e) {
+            occurrence.setOccurrenceKind(null);
+        }
         occurrence.setFlow(entity.getFlow());
         occurrence.setComments(entity.getComments());
         occurrence.setCreatedBy(entity.getCreatedBy());
@@ -41,6 +46,9 @@ public class OccurrenceEntityMapper {
     }
 
     public static OccurrenceEntityCriteria map(OccurrenceFilter filter) {
+        if (filter == null) {
+            return new OccurrenceEntityCriteria();
+        }
         OccurrenceEntityCriteria criteria = new OccurrenceEntityCriteria();
         criteria.setSearch(filter.search());
         criteria.setPending(filter.pending());

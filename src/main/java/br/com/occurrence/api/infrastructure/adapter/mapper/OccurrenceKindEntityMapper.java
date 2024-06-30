@@ -40,6 +40,9 @@ public class OccurrenceKindEntityMapper {
     }
 
     public static OccurrenceKindEntityCriteria map(OccurrenceKindFilter filter) {
+        if (filter == null) {
+            return new OccurrenceKindEntityCriteria();
+        }
         OccurrenceKindEntityCriteria criteria = new OccurrenceKindEntityCriteria();
         criteria.setSearch(filter.search());
         return criteria;

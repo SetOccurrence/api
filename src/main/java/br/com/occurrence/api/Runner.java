@@ -1,5 +1,6 @@
 package br.com.occurrence.api;
 
+import br.com.occurrence.api.domain.model.occurrence.Occurrence;
 import br.com.occurrence.api.domain.model.occurrence.OccurrenceKind;
 import br.com.occurrence.api.domain.model.occurrence.commons.flow.FlowMap;
 import br.com.occurrence.api.domain.model.occurrence.commons.form.Form;
@@ -9,12 +10,12 @@ import br.com.occurrence.api.domain.model.occurrence.commons.form.question.Short
 import br.com.occurrence.api.domain.model.occurrence.commons.step.AuthorizationStep;
 import br.com.occurrence.api.domain.model.occurrence.commons.step.FormStep;
 import br.com.occurrence.api.domain.model.occurrence.commons.step.Step;
-import br.com.occurrence.api.domain.model.organization.Entity;
 import br.com.occurrence.api.domain.model.organization.Unit;
 import br.com.occurrence.api.domain.model.organization.User;
 import br.com.occurrence.api.domain.model.organization.commons.Address;
 import br.com.occurrence.api.domain.model.organization.commons.Contact;
 import br.com.occurrence.api.domain.repository.OccurrenceKindRepository;
+import br.com.occurrence.api.domain.repository.OccurrenceRepository;
 import br.com.occurrence.api.domain.repository.UnitRepository;
 import br.com.occurrence.api.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -36,13 +38,30 @@ public class Runner implements ApplicationRunner {
     private final PasswordEncoder passwordEncoder;
     private UnitRepository unitRepository;
     private OccurrenceKindRepository occurrenceKindRepository;
+    private OccurrenceRepository occurrenceRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        cleanOccurrences();
+        cleanOccurrenceKind();
         User admin = obtainUser("Administrador", "admin");
         User user = obtainUser("Jonatan", "jonatan_birck"); 
         Unit unit = createUnit("Unidade A", user);
         OccurrenceKind kind = createOccurrenceKind(unit, user);
+    }
+
+    private void cleanOccurrences() {
+        List<Occurrence> occurrenceList = occurrenceRepository.findAll(null);
+        for (Occurrence occurrence : occurrenceList) {
+            occurrenceRepository.deleteById(occurrence.getId());
+        }
+    }
+
+    private void cleanOccurrenceKind() {
+        List<OccurrenceKind> occurrenceKindList = occurrenceKindRepository.findAll(null);
+        for (OccurrenceKind occurrenceKind : occurrenceKindList) {
+            occurrenceKindRepository.deleteById(occurrenceKind.getId());
+        }
     }
 
     private User obtainUser(String name, String login) {
