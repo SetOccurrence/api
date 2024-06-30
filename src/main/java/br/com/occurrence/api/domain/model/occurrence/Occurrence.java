@@ -150,7 +150,7 @@ public class Occurrence {
 
     private void updateStatus() {
         //update
-        boolean finish = (flow.getStepIndex() + 1) > occurrenceKind.getFlowMap().getSteps().size();
+        boolean finish = flow.getStepIndex() >= occurrenceKind.getFlowMap().getSteps().size();
         if (finish) {
             this.setStatus(Occurrence.Status.FINISH);
         }
