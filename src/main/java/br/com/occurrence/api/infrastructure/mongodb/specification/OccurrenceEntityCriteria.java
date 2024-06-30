@@ -22,15 +22,15 @@ public class OccurrenceEntityCriteria {
         filters.add(OccurrenceEntitySpecifications.search(search));
     }
 
-    public void setPending(boolean pending) {
-        if (!pending) {
+    public void setPending(Boolean pending) {
+        if (pending == null || !pending) {
             return;
         }
         filters.add(OccurrenceEntitySpecifications.pending());
     }
 
-    public void setMyOccurrences(boolean myOccurrences) {
-        if (!myOccurrences) {
+    public void setMyOccurrences(Boolean myOccurrences) {
+        if (myOccurrences == null || !myOccurrences) {
             return;
         }
         filters.add(OccurrenceEntitySpecifications.requesterId(UserReadService.me().getId()));

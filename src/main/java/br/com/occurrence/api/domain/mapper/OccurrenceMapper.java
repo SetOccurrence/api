@@ -6,14 +6,12 @@ import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.AuthorizationRe
 import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.FlowDto;
 import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.FlowRegistryDto;
 import br.com.occurrence.api.app.api.dto.occurrence.commons.flow.FormRegistryDto;
-import br.com.occurrence.api.app.api.dto.occurrence.commons.form.answer.*;
 import br.com.occurrence.api.domain.model.occurrence.Occurrence;
 import br.com.occurrence.api.domain.model.occurrence.commons.Comment;
 import br.com.occurrence.api.domain.model.occurrence.commons.flow.AuthorizationRegistry;
 import br.com.occurrence.api.domain.model.occurrence.commons.flow.Flow;
 import br.com.occurrence.api.domain.model.occurrence.commons.flow.FlowRegistry;
 import br.com.occurrence.api.domain.model.occurrence.commons.flow.FormRegistry;
-import br.com.occurrence.api.domain.model.occurrence.commons.form.answer.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -105,8 +103,5 @@ public class OccurrenceMapper {
             UserMapper.toUserDTO(comment.getUser())
         );
     }
-
-
-    //void updateOccurrenceFromDto(@MappingTarget Occurrence occurrence, OccurrenceFormDto form);
 
 }

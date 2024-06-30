@@ -8,7 +8,6 @@ import br.com.occurrence.api.domain.model.occurrence.Occurrence;
 import br.com.occurrence.api.domain.service.OccurrenceService;
 import br.com.occurrence.api.domain.util.filter.OccurrenceFilter;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public record OccurrenceFilter(
         String search,
-        boolean pending,
-        boolean myOccurrences,
+        Boolean pending,
+        Boolean myOccurrences,
         UUID requesterId,
         LocalDateTime startDateAt,
         LocalDateTime endDateAt) {
