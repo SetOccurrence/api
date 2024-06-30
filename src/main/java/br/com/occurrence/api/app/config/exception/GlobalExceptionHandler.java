@@ -176,6 +176,14 @@ public class GlobalExceptionHandler {
         return new ApiExceptionDetail(BAD_REQUEST, e);
     }
 
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(OccurrenceAlreadyResolvedException.class)
+    @ResponseBody
+    public ApiExceptionDetail handleOccurrenceAlreadyResolvedException(OccurrenceAlreadyResolvedException e) {
+        log.warn(formatLog(e));
+        return new ApiExceptionDetail(BAD_REQUEST, e);
+    }
+
     private static String formatLog(Exception e) {
         return String.format("%s: %s", e.getClass().getSimpleName(), e.getMessage());
     }
