@@ -38,11 +38,16 @@ public class Occurrence {
     private String id;
     private String name;
     private OccurrenceKind occurrenceKind;
-    private Status status = Status.OPEN;
+    private Status status;
     private Flow flow;
     private List<Comment> comments;
     private String createdBy;
     private LocalDateTime createdAt;
+
+    public Occurrence() {
+        this.status = Status.OPEN;
+        this.flow = new Flow(new LinkedList<>(), 0);
+    }
 
     @Getter
     @AllArgsConstructor
@@ -123,7 +128,7 @@ public class Occurrence {
         //validar se contem as respostas das questões do formulario da etapa
         Set<Question> questions = step.getForm().getQuestions();
 
-        if (questions.size() >= answers.size()) {
+        if (questions.size() > answers.size()) {
             throw new InvalidFormException("Não pode haver mais respostas que perguntas");
         }
 
