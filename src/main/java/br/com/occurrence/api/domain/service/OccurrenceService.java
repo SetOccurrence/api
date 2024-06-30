@@ -15,6 +15,7 @@ import br.com.occurrence.api.domain.model.occurrence.commons.form.answer.*;
 import br.com.occurrence.api.domain.model.occurrence.commons.form.question.*;
 import br.com.occurrence.api.domain.model.occurrence.commons.step.FormStep;
 import br.com.occurrence.api.domain.repository.OccurrenceRepository;
+import br.com.occurrence.api.domain.util.exception.OccurrenceAlreadyResolvedException;
 import br.com.occurrence.api.domain.util.exception.OccurrenceNotFoundException;
 import br.com.occurrence.api.domain.util.exception.WrongStepOccurrenceException;
 import br.com.occurrence.api.domain.util.filter.OccurrenceFilter;
@@ -62,6 +63,9 @@ public class OccurrenceService {
 
     public Occurrence resolve(String id, OccurrenceResolveDto resolveDto) {
         Occurrence occurrence = findById(id);
+        if (!Occurrence.Status.OPEN.equals(occurrence.getStatus())) {
+            throw new OccurrenceAlreadyResolvedException();
+        }
         occurrence.resolve(resolveDto.registry());
         return occurrenceRepository.update(occurrence);
     }

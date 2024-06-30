@@ -1008,7 +1008,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"occurrenceKindId\": \"667ab939cc9b3a4b145a37fe\",\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Registro solicitação\",\r\n            \"type\": \"FORM\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data inicial\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-06-24\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data final\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-07-08\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Observações\",\r\n                    \"type\": \"SHORT_TEXT\"\r\n                },\r\n                \"answer\": \"coitadinho\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"raw": "{\r\n    \"occurrenceKindId\": \"66818b56aee6d9186414cb4f\",\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Registro solicitação\",\r\n            \"type\": \"FORM\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data inicial\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-06-24\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data final\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-07-08\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Observações\",\r\n                    \"type\": \"SHORT_TEXT\"\r\n                },\r\n                \"answer\": \"coitadinho\"\r\n            }\r\n        ]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1026,6 +1026,166 @@
 								"api",
 								"v1",
 								"occurrences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll - page",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/occurrences",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"occurrences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll - list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"occurrenceKindId\": \"667ab939cc9b3a4b145a37fe\",\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Registro solicitação\",\r\n            \"type\": \"FORM\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data inicial\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-06-24\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data final\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-07-08\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Observações\",\r\n                    \"type\": \"SHORT_TEXT\"\r\n                },\r\n                \"answer\": \"coitadinho\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/occurrences/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"occurrences",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"occurrenceKindId\": \"667ab939cc9b3a4b145a37fe\",\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Registro solicitação\",\r\n            \"type\": \"FORM\"\r\n        },\r\n        \"answers\": [\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data inicial\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-06-24\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Data final\",\r\n                    \"type\": \"DATE\"\r\n                },\r\n                \"date\": \"2024-07-08\"\r\n            },\r\n            {\r\n                \"question\": {\r\n                    \"name\": \"Observações\",\r\n                    \"type\": \"SHORT_TEXT\"\r\n                },\r\n                \"answer\": \"coitadinho\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/occurrences/66818bc7f5d2321ad0d1d766",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"occurrences",
+								"66818bc7f5d2321ad0d1d766"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resolve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"registry\": {\r\n        \"step\": {\r\n            \"name\": \"Aprovação liderança\",\r\n            \"type\": \"AUTHORIZATION\"\r\n        },\r\n        \"action\": \"APPROVE\",\r\n        \"observation\": \"Vai na fé!\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/occurrences/66818bc7f5d2321ad0d1d766",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"occurrences",
+								"66818bc7f5d2321ad0d1d766"
 							]
 						}
 					},
